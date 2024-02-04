@@ -2,6 +2,7 @@
 // All packages except `@mantine/hooks` require styles imports
 import "@mantine/core/styles.css";
 
+import Structure from "@/components/Structure/Structure";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 
 export const metadata = {
@@ -14,13 +15,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  
   return (
     <html lang="en">
       <head>
         <ColorSchemeScript />
       </head>
       <body>
-        <MantineProvider defaultColorScheme="dark">{children}</MantineProvider>
+        <MantineProvider defaultColorScheme="dark">
+          <Structure>{children}</Structure>
+        </MantineProvider>
       </body>
     </html>
   );
