@@ -10,8 +10,7 @@ export default function Structure({children}: {children: React.ReactNode;}) {
   return (
     <AppShell
       header={{
-        height: { base: 60, md: 70, lg: 80 },
-        collapsed: opened,
+        height: { base: 60, md: 60, lg: 60 },
       }}
       navbar={{
         width: { base: 200, md: 300, lg: 300 },
@@ -28,7 +27,7 @@ export default function Structure({children}: {children: React.ReactNode;}) {
         </Group>
       </AppShell.Header>
       <AppShell.Navbar>
-        <NavbarSimple />
+        <NavbarSimple toggle={toggle} />
       </AppShell.Navbar>
       <AppShell.Main>{children}</AppShell.Main>
     </AppShell>

@@ -19,7 +19,7 @@ const data = [
   { link: "", label: "Games", icon: IconDeviceGamepad },
 ];
 
-export function NavbarSimple() {
+export function NavbarSimple({toggle}: {toggle: () => void;}) {
   const [active, setActive] = useState("Books");
 
   const links = data.map((item) => (
@@ -29,6 +29,7 @@ export function NavbarSimple() {
       href={item.link}
       key={item.label}
       onClick={(event) => {
+        toggle();
         setActive(item.label);
       }}
     >

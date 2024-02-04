@@ -1,5 +1,5 @@
 .navbar {
-  height: rem(700px);
+  height: 100%;
   width: 100%;
   padding: var(--mantine-spacing-md);
   display: flex;

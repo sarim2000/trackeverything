@@ -13,7 +13,7 @@ const computedColorScheme = useComputedColorScheme('light', { getInitialValueInE
         setColorScheme(computedColorScheme === "light" ? "dark" : "light")
       }
       variant="default"
-      size="xl"
+      size="md"
       aria-label="Toggle color scheme"
     >
       <IconSun className={`${classes.icon} ${classes.light}`} stroke={1.5} />
