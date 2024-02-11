@@ -4,6 +4,7 @@ import "@mantine/core/styles.css";
 
 import Structure from "@/components/Structure/Structure";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+import { theme } from "../../theme";
 
 export const metadata = {
   title: "My tracker app",
@@ -22,7 +23,7 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body>
-        <MantineProvider defaultColorScheme="dark">
+        <MantineProvider theme={theme} defaultColorScheme="dark">
           <Structure>{children}</Structure>
         </MantineProvider>
       </body>
