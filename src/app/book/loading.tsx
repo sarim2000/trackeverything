@@ -4,7 +4,7 @@ export default function Loading() {
   return (
     <Flex wrap={"wrap"} justify={"center"} gap={"lg"}>
       {Array.from({ length: 10 }).map((_, index) => (
-        <Box style={{ width: "300px" }}>
+        <Box style={{ width: "300px" }} key={index}>
           <Skeleton
             key={index}
             height={320}

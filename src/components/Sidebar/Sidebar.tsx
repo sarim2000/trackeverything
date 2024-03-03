@@ -20,7 +20,7 @@ const data = [
 ];
 
 export function NavbarSimple({toggle}: {toggle: () => void;}) {
-  const [active, setActive] = useState("Books");
+  const [active, setActive] = useState("All");
 
   const links = data.map((item) => (
     <Link

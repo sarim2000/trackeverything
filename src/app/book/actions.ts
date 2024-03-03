@@ -1,11 +1,9 @@
 "use server";
-import { unstable_noStore as noStore } from "next/cache";
 
 export default async function getBooks(name: string) {
-  noStore();
-  // delay for 20 sec
+
   try {
-    const res = await fetch(`http://openlibrary.org/search.json?title=${name}`);
+    const res = await fetch(`http://openlibrary.org/search.json?title=${name}`, { next: { revalidate: 3600 } });
     const data = await res.json();
     const { docs } = data;
 
