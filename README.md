@@ -1,6 +1,5 @@
 # trackeverything webapp
 
-
 ### what
 
 An app where user can track books,movies, tv, games and get recommendation from ai based on their watch lists and share
@@ -11,22 +10,21 @@ An app where user can track books,movies, tv, games and get recommendation from 
 2. Ability to track
 3. profile page
 4. good enough UI
-   
+
 ### nice to have
 
 1. AI recommendations
 2. share and get good screen shot of top 10
 3. good enough response time
+4. add reviews
 
 ### Complete By
 
 2nd Week of Feb
 
-
-
 ### planned services
 
-1. [movie tracker api]([https://](https://developer.themoviedb.org/docs/faq))
+1. [movie tracker api](<[https://](https://developer.themoviedb.org/docs/faq)>)
 
 2. [game tracker api](https://api-docs.igdb.com/#business-related-faq)
 

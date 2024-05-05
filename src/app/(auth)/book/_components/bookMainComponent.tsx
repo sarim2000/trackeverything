@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import {
   Badge,
   Box,
@@ -10,27 +10,23 @@ import {
   Text,
   Container,
   Title,
-} from "@mantine/core";
-import { IconArrowRight, IconBook, IconPhoto } from "@tabler/icons-react";
+} from '@mantine/core';
+import { IconArrowRight, IconBook, IconPhoto } from '@tabler/icons-react';
 
 export default function BookMainComponent({
   description,
   title,
   cover_img,
   subjects,
-  subject_people,
-  subject_times,
 }: {
   description: string;
   title: string;
   cover_img: string;
   subjects: string[];
-  subject_people: string[];
-  subject_times: string[];
 }) {
-  console.log("🚀 ~ subjects:", subjects);
+  console.log('🚀 ~ subjects:', subjects);
   return (
-    <Flex direction={"column"} align={"center"} gap={"lg"}>
+    <Flex direction={'column'} align={'center'} gap={'lg'}>
       <Box>
         <Title order={1}>{title}</Title>
       </Box>
@@ -46,14 +42,14 @@ export default function BookMainComponent({
           Add
         </Button>
       </Box>
-      <Box style={{ width: "100%" }}>
-        <Flex wrap={"wrap"} gap={"md"} align={"center"}>
+      <Box style={{ width: '100%' }}>
+        <Flex wrap={'wrap'} gap={'md'} align={'center'}>
           {subjects.slice(0, 5).map((subject, ind) => (
             <Badge key={ind}>{subject}</Badge>
           ))}
         </Flex>
       </Box>
-      <Box style={{ width: "100%" }}>
+      <Box style={{ width: '100%' }}>
         <Title order={3}>{description}</Title>
       </Box>
     </Flex>

@@ -1,26 +1,26 @@
-"use client"
+'use client';
 import {
   IconBooks,
   IconDeviceGamepad,
   IconHome,
   IconLogout,
   IconMovie,
-  IconSettings
-} from "@tabler/icons-react";
+  IconSettings,
+} from '@tabler/icons-react';
 
-import Link from "next/link";
-import { useState } from "react";
-import classes from "./Sidebar.module.css";
+import Link from 'next/link';
+import { useState } from 'react';
+import classes from './Sidebar.module.css';
 
 const data = [
-  { link: "/", label: "All", icon: IconHome },
-  { link: "book", label: "Books", icon: IconBooks },
-  { link: "", label: "Movies / TV Shows", icon: IconMovie },
-  { link: "", label: "Games", icon: IconDeviceGamepad },
+  { link: '/', label: 'All', icon: IconHome },
+  { link: 'book', label: 'Books', icon: IconBooks },
+  { link: '', label: 'Movies / TV Shows', icon: IconMovie },
+  { link: '', label: 'Games', icon: IconDeviceGamepad },
 ];
 
-export function NavbarSimple({toggle}: {toggle: () => void;}) {
-  const [active, setActive] = useState("All");
+export function NavbarSimple({ toggle }: { toggle: () => void }) {
+  const [active, setActive] = useState('All');
 
   const links = data.map((item) => (
     <Link
@@ -48,20 +48,12 @@ export function NavbarSimple({toggle}: {toggle: () => void;}) {
       </div>
 
       <div className={classes.footer}>
-        <a
-          href="#"
-          className={classes.link}
-          onClick={(event) => event.preventDefault()}
-        >
+        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
           <IconSettings className={classes.linkIcon} stroke={1.5} />
           <span>Profile</span>
         </a>
 
-        <a
-          href="#"
-          className={classes.link}
-          onClick={(event) => event.preventDefault()}
-        >
+        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>
         </a>

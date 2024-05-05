@@ -1,10 +1,11 @@
-"use client";
-import { ColorSchemeToggle } from "@/components/ColorSchemeToggle/ColorSchemeToggle";
-import { NavbarSimple } from "@/components/Sidebar/Sidebar";
-import { AppShell, Burger, Group } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+'use client';
+import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
+import { NavbarSimple } from '@/components/Sidebar/Sidebar';
+import { AppShell, Burger, Group } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import React from 'react';
 
-export default function Structure({children}: {children: React.ReactNode;}) {
+export default function Structure({ children }: { children: React.ReactNode }) {
   const [opened, { toggle }] = useDisclosure();
 
   return (
@@ -14,7 +15,7 @@ export default function Structure({children}: {children: React.ReactNode;}) {
       }}
       navbar={{
         width: { base: 200, md: 300, lg: 300 },
-        breakpoint: "md",
+        breakpoint: 'md',
         collapsed: { mobile: !opened },
       }}
       padding="md"

@@ -1,11 +1,11 @@
-"use client";
-import { Box, Button, Flex, TextInput, rem } from "@mantine/core";
-import { IconSearch } from "@tabler/icons-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+'use client';
+import { Box, Button, Flex, TextInput, rem } from '@mantine/core';
+import { IconSearch } from '@tabler/icons-react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 
 export default function Search() {
-  const [value, setvalue] = useState<string>("");
+  const [value, setvalue] = useState<string>('');
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -18,7 +18,7 @@ export default function Search() {
         leftSection={icon}
         placeholder="..."
         size="lg"
-        defaultValue={searchParams.get("title") || ""}
+        defaultValue={searchParams.get('title') || ''}
         onChange={(e) => setvalue(e.currentTarget.value)}
       />
       <Box>
@@ -26,14 +26,14 @@ export default function Search() {
           onClick={async () => {
             const params = new URLSearchParams(searchParams);
             if (value) {
-              params.set("title", value);
+              params.set('title', value);
             } else {
-              params.delete("title");
+              params.delete('title');
             }
             replace(`${pathname}?${params.toString()}`);
           }}
         >
-          Search{" "}
+          Search{' '}
         </Button>
       </Box>
     </Flex>

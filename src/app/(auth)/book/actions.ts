@@ -1,9 +1,10 @@
-"use server";
+'use server';
 
 export default async function getBooks(name: string) {
-
   try {
-    const res = await fetch(`http://openlibrary.org/search.json?title=${name}`, { next: { revalidate: 3600 } });
+    const res = await fetch(`http://openlibrary.org/search.json?title=${name}`, {
+      next: { revalidate: 3600 },
+    });
     const data = await res.json();
     const { docs } = data;
 
@@ -19,14 +20,7 @@ export default async function getBooks(name: string) {
             first_publish_year: any;
             title: any;
           }) => {
-            const {
-              key,
-              author_name,
-              cover_i,
-              edition_count,
-              first_publish_year,
-              title,
-            } = book;
+            const { key, author_name, cover_i, edition_count, first_publish_year, title } = book;
 
             return {
               key,
@@ -38,18 +32,20 @@ export default async function getBooks(name: string) {
             };
           }
         );
+      console.log('🚀 ~ getBooks ~ newBooks:', newBooks);
+
       return newBooks;
     }
   } catch (e) {
     console.log(e);
     return [
       {
-        key: "0",
-        author_name: ["No author"],
-        cover_i: "0",
+        key: '0',
+        author_name: ['No author'],
+        cover_i: '0',
         edition_count: 0,
         first_publish_year: 0,
-        title: "No title",
+        title: 'No title',
       },
     ];
   }
