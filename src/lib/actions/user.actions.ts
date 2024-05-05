@@ -1,6 +1,9 @@
 "use server";
 
 import { createAdminClient, createSessionClient } from "@/lib/appwrite";
+import { ID } from "node-appwrite";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export async function getLoggedInUser() {
   try {
@@ -11,9 +14,7 @@ export async function getLoggedInUser() {
   }
 }
 
-import { ID } from "node-appwrite";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+
 
 export async function signUpWithEmail(formData: any) {
 
@@ -35,3 +36,26 @@ export async function signUpWithEmail(formData: any) {
 
   redirect("/account");
 }
+
+export async function signInWithEmail(formData: {
+  email: string;
+  password: string;
+}) {
+  console.log(formData);
+  const email = formData.email;
+  const password = formData.password;
+
+  const { account } = await createAdminClient();
+
+  const session = await account.createEmailPasswordSession(email, password);
+
+  cookies().set("appwrite-session", session.secret, {
+    path: "/",
+    httpOnly: true,
+    sameSite: "strict",
+    secure: true
+  });
+
+  redirect("/books");
+}
+

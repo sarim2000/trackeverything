@@ -1,5 +1,11 @@
 # trackeverything webapp
 
+## TODO (follow one by one)
+
+- [ ] complete auth; 
+- [ ] complete books page
+
+
 ### what
 
 An app where user can track books,movies, tv, games and get recommendation from ai based on their watch lists and share

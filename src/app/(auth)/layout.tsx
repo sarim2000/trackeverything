@@ -7,6 +7,7 @@ import { theme } from "@/lib/theme";
 import React from "react";
 import { getLoggedInUser } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
+import '@mantine/core/styles.css';
 
 export const metadata = {
   title: "My tracker app",
