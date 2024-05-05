@@ -2,8 +2,10 @@
 
 ## TODO (follow one by one)
 
-- [ ] complete auth; 
-- [ ] complete books page
+- [ ] complete auth
+- [ ] set up database for users (profile data --> watchlist, reviews, etc)
+- [ ] set up database for books
+- [ ] 
 
 
 ### what
