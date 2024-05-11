@@ -1,9 +1,9 @@
 'use client';
 import { ColorSchemeToggle } from '@/components/colorschemetoggle/ColorSchemeToggle';
-import { NavbarSimple } from '@/components/sidebar/Sidebar';
 import { AppShell, Burger, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import React from 'react';
+import { NavbarSimple } from '../sidebar/Sidebar';
 
 export default function Structure({ children }: { children: React.ReactNode }) {
   const [opened, { toggle }] = useDisclosure();
