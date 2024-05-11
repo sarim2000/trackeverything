@@ -10,7 +10,7 @@ import {
 
 import Link from 'next/link';
 import { useState } from 'react';
-import classes from './Sidebar.module.css';
+import classes from './sidebar.module.css';
 
 import { logoutAccount } from '@/lib/actions/user.actions';
 

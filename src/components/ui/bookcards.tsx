@@ -4,7 +4,7 @@ import { Book } from '@/lib/types';
 import { Badge, Button, Card, Flex, Group, Image, Text } from '@mantine/core';
 import Link from 'next/link';
 
-export default function BookCardComponent({ books }: { books: Book[] }) {
+export default function   BookCardComponent({ books }: { books: Book[] }) {
   return (
     <Flex wrap={'wrap'} justify={'center'} gap={'lg'}>
       {books &&
