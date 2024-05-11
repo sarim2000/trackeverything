@@ -34,7 +34,7 @@ export async function signUpWithEmail(formData: any) {
     secure: true
   });
 
-  redirect("/account");
+  redirect("/books");
 }
 
 export async function signInWithEmail(formData: {
@@ -59,3 +59,14 @@ export async function signInWithEmail(formData: {
   redirect("/books");
 }
 
+export const logoutAccount = async () => {
+  try {
+    const { account } = await createSessionClient();
+
+    cookies().delete('appwrite-session');
+
+    await account.deleteSession('current');
+  } catch (error) {
+    return null;
+  }
+}

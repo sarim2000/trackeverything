@@ -2,11 +2,12 @@
 
 import { getLoggedInUser, signInWithEmail, signUpWithEmail } from "@/lib/actions/user.actions";
 import { Container, Title, Anchor, Paper, TextInput, PasswordInput, Group, Checkbox, Button, Text, NumberInput } from "@mantine/core";
-import { redirect } from "next/navigation";
 import { useForm } from '@mantine/form';
+import { useRouter } from "next/navigation";
 
 
 export default function SignUpPage() {
+  const router = useRouter();
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: { email: '', password: '' },
@@ -30,7 +31,7 @@ export default function SignUpPage() {
         </Title>
         <Text c="dimmed" size="sm" ta="center" mt={5}>
           Do not have an account yet?{' '}
-          <Anchor size="sm" component="button">
+          <Anchor size="sm" component="button" onClick={() => router.push('/signup')}>
             Create account
           </Anchor>
         </Text>
@@ -45,13 +46,18 @@ export default function SignUpPage() {
               placeholder="Email"
               key={form.key('email')}
               {...form.getInputProps('email')}
+              mb={10}
+
             />
             <TextInput
               mt="sm"
+              type="password"
               label="Password"
               placeholder="Password"
               key={form.key('password')}
               {...form.getInputProps('password')}
+              mb={10}
+
             />
             
             <Button type="submit" mt="sm">

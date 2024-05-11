@@ -1,13 +1,13 @@
 // Import styles of packages that you've installed.
 // All packages except `@mantine/hooks` require styles imports
 import "@mantine/core/styles.css";
-import Structure from "@/components/Structure/Structure";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { theme } from "@/lib/theme";
 import React from "react";
 import { getLoggedInUser } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
 import '@mantine/core/styles.css';
+import Structure from "@/components/ui/structure";
 
 export const metadata = {
   title: "My tracker app",

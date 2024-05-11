@@ -12,6 +12,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 import classes from './Sidebar.module.css';
 
+import { logoutAccount } from '@/lib/actions/user.actions';
+
 const data = [
   { link: '/', label: 'All', icon: IconHome },
   { link: 'book', label: 'Books', icon: IconBooks },
@@ -53,10 +55,10 @@ export function NavbarSimple({ toggle }: { toggle: () => void }) {
           <span>Profile</span>
         </a>
 
-        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
+        <div className={classes.link} onClick={() => logoutAccount()}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>
-        </a>
+        </div>
       </div>
     </nav>
   );

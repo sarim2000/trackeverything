@@ -1,6 +1,6 @@
 'use client';
-import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
-import { NavbarSimple } from '@/components/Sidebar/Sidebar';
+import { ColorSchemeToggle } from '@/components/colorschemetoggle/ColorSchemeToggle';
+import { NavbarSimple } from '@/components/sidebar/Sidebar';
 import { AppShell, Burger, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import React from 'react';

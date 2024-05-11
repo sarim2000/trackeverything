@@ -1,7 +1,6 @@
 import React from "react";
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import { theme } from '@/lib/theme';
-import Structure from '@/components/Structure/Structure';
 import '@mantine/core/styles.css';
 import { getLoggedInUser } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
