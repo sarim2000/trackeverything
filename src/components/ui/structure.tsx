@@ -2,7 +2,7 @@
 import { AppShell, Burger, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import React from 'react';
-import { NavbarSimple } from '../sidebar/sidebar';
+import { Sidebar } from '../sidebar/sidebar';
 import { ColorSchemeToggle } from '../colorschemetoggle/colorschemetoggle';
 
 export default function Structure({ children }: { children: React.ReactNode }) {
@@ -28,7 +28,7 @@ export default function Structure({ children }: { children: React.ReactNode }) {
         </Group>
       </AppShell.Header>
       <AppShell.Navbar>
-        <NavbarSimple toggle={toggle} />
+        <Sidebar toggle={toggle} />
       </AppShell.Navbar>
       <AppShell.Main>{children}</AppShell.Main>
     </AppShell>

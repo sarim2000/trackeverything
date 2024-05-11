@@ -21,7 +21,7 @@ const data = [
   { link: '', label: 'Games', icon: IconDeviceGamepad },
 ];
 
-export function NavbarSimple({ toggle }: { toggle: () => void }) {
+export function Sidebar({ toggle }: { toggle: () => void }) {
   const [active, setActive] = useState('All');
 
   const links = data.map((item) => (
