@@ -1,9 +1,10 @@
 "use server";
 
 import { createAdminClient, createSessionClient } from "@/lib/appwrite";
-import { ID } from "node-appwrite";
+import { ID, Query } from "node-appwrite";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { parseStringify } from "../utils";
 
 
 const {
@@ -20,6 +21,24 @@ export async function getLoggedInUser() {
     return null;
   }
 }
+
+export const getUserInfo = async ({ userId }: { userId: string }) => {
+  try {
+    const { database } = await createAdminClient();
+
+    const user = await database.listDocuments(
+      DATABASE_ID!,
+      USER_COLLECTION_ID!,
+      [Query.equal('userId', userId)]
+    )
+    console.log("🚀 ~ getUserInfo ~ user:", user)
+
+    return parseStringify(user.documents[0]);
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 
 export async function signUpWithEmail(formData: {
   email: string;

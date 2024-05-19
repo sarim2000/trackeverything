@@ -2,7 +2,7 @@
 
 export default async function getBooks(name: string) {
   try {
-    const res = await fetch(`http://openlibrary.org/search.json?title=${name}`, {
+    const res = await fetch(`http://openlibrary.org/search.json?title=${name}&limit=30`, {
       next: { revalidate: 3600 },
     });
     const data = await res.json();
@@ -13,14 +13,15 @@ export default async function getBooks(name: string) {
         .slice(0, 20)
         .map(
           (book: {
-            key: any;
-            author_name: any;
-            cover_i: any;
-            edition_count: any;
-            first_publish_year: any;
-            title: any;
+            key: string;
+            author_name: string;
+            cover_i: string;
+            edition_count: string;
+            first_publish_year: string;
+            title: string;
+            first_sentence: string[]
           }) => {
-            const { key, author_name, cover_i, edition_count, first_publish_year, title } = book;
+            const { key, author_name, cover_i, edition_count, first_publish_year, title, first_sentence } = book;
 
             return {
               key,
@@ -29,6 +30,7 @@ export default async function getBooks(name: string) {
               edition_count,
               first_publish_year,
               title,
+              first_sentence
             };
           }
         );

@@ -1,4 +1,5 @@
 'use client';
+import { sumbitBooks } from '@/lib/actions/books.actions';
 import {
   Badge,
   Box,
@@ -35,6 +36,7 @@ export default function BookMainComponent({
       </Container>
       <Box>
         <Button
+          onClick={async () => await sumbitBooks({title, description, cover_img})}
           variant="light"
           leftSection={<IconBook size={14} />}
           rightSection={<IconArrowRight size={14} />}

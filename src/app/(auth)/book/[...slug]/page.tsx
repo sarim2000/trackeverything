@@ -1,4 +1,4 @@
-import BookMainComponent from '@/app/(auth)/book/_components/bookMainComponent';
+import BookMainComponent from "./_components/bookMainComponent";
 
 const URL = 'https://openlibrary.org/works/';
 

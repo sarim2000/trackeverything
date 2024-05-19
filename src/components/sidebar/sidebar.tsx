@@ -11,23 +11,26 @@ import {
 import Link from 'next/link';
 import { useState } from 'react';
 import classes from './sidebar.module.css';
+import { usePathname } from 'next/navigation'
+
 
 import { logoutAccount } from '@/lib/actions/user.actions';
 
 const data = [
   { link: '/', label: 'All', icon: IconHome },
-  { link: 'book', label: 'Books', icon: IconBooks },
+  { link: '/book', label: 'Books', icon: IconBooks },
   { link: '', label: 'Movies / TV Shows', icon: IconMovie },
   { link: '', label: 'Games', icon: IconDeviceGamepad },
 ];
 
 export function Sidebar({ toggle }: { toggle: () => void }) {
-  const [active, setActive] = useState('All');
+  const pathname = usePathname()
+  const [active, setActive] = useState(pathname);
 
   const links = data.map((item) => (
     <Link
       className={classes.link}
-      data-active={item.label === active || undefined}
+      data-active={item.link === active || undefined}
       href={item.link}
       key={item.label}
       onClick={(event) => {

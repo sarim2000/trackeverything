@@ -1,10 +1,10 @@
 'use client';
 
 import { Book } from '@/lib/types';
-import { Badge, Button, Card, Flex, Group, Image, Text } from '@mantine/core';
+import { Badge, Box, Button, Card, Flex, Group, Image, Text } from '@mantine/core';
 import Link from 'next/link';
 
-export default function   BookCardComponent({ books }: { books: Book[] }) {
+export default function BookCardComponent({ books }: { books: Book[] }) {
   return (
     <Flex wrap={'wrap'} justify={'center'} gap={'lg'}>
       {books &&
@@ -32,13 +32,13 @@ export default function   BookCardComponent({ books }: { books: Book[] }) {
               </Text>
             </Group>
 
-            <Text size="sm" c="dimmed" lineClamp={4}>
-              With Fjord Tours you can explore more of the magical fjord landscapes with tours and
-              activities on and around the fjords of Norway
+            <Text size="sm" c="dimmed" lineClamp={4} style={{ minHeight: '80px' }}>
+              {
+                book.first_sentence && book.first_sentence.length > 0 ? book.first_sentence[0] : "No Info Available"
+              }
             </Text>
-
-            <Link href={`/book${book.key}`}>
-              <Button color="blue" fullWidth mt="md" radius="md">
+            <Link href={`/book${book.key}`} style={{ textDecoration: 'none' }}>
+              <Button fullWidth mt="md" radius="md">
                 View
               </Button>
             </Link>
