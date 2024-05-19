@@ -11,6 +11,8 @@ export default function SignUpPage() {
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: { email: '', password: '' },
+    validateInputOnChange: true,
+
 
     // functions will be used to validate values at corresponding key
     validate: {
@@ -30,7 +32,7 @@ export default function SignUpPage() {
           Welcome back!
         </Title>
         <Text c="dimmed" size="sm" ta="center" mt={5}>
-          Do not have an account yet?{' '}
+          Don't have an account yet?{' '}
           <Anchor size="sm" component="button" onClick={() => router.push('/signup')}>
             Create account
           </Anchor>

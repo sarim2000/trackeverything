@@ -1,7 +1,7 @@
 import { Title, Text, Button, Container } from '@mantine/core';
-import { Dots } from './Dots';
 import classes from '@/styles/Herotext.module.css'
 import Link from 'next/link';
+import { Dots } from '@/components/ui/Dots';
 
 export default function HeroText() {
   return (
@@ -13,33 +13,31 @@ export default function HeroText() {
 
       <div className={classes.inner}>
         <Title className={classes.title}>
-          Automated AI{' '}
+          Your Ultimate{' '}
           <Text component="span" className={classes.highlight} inherit>
-            code reviews
+            Entertainment Tracking Hub
           </Text>{' '}
-          for any stack
+          - All in One Place
         </Title>
 
         <Container p={0} size={600}>
           <Text size="lg" c="dimmed" className={classes.description}>
-            Build more reliable software with AI companion. AI is also trained to detect lazy
-            developers who do nothing and just complain on Twitter.
+            Effortlessly track and organize your favorite books, movies, TV shows, and video games. Never lose track of your entertainment journey again!
           </Text>
         </Container>
-
         <div className={classes.controls}>
-            <Button className={classes.control} size="lg" variant="default" color="gray">
-            <Link href="/signin">
+          <Button className={classes.control} size="lg" variant="default" color="gray" radius="md">
+            <Link href="/signin" style={{ textDecoration: 'none', color: 'white' }}>
 
-              Sign In
+              Welcome Back
             </Link>
           </Button>
-            <Button className={classes.control} size="lg">
-              <Link href="/signup">
-                Sign Up
-              </Link>
-            </Button>
-          
+          <Button className={classes.control} size="lg" radius="md">
+            <Link href="/signup" style={{ textDecoration: 'none', color: 'white' }}>
+              Get Started
+            </Link>
+          </Button>
+
         </div>
       </div>
     </Container>

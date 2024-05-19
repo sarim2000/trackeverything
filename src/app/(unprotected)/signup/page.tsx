@@ -1,26 +1,38 @@
 "use client";
 
 import { getLoggedInUser, signInWithEmail, signUpWithEmail } from "@/lib/actions/user.actions";
-import { Container, Title, Anchor, Paper, TextInput, PasswordInput, Group, Checkbox, Button, Text, NumberInput } from "@mantine/core";
+import { Container, Title, Anchor, Paper, TextInput, PasswordInput, Group, Checkbox, Button, Text, NumberInput, LoadingOverlay } from "@mantine/core";
 import { useForm } from '@mantine/form';
+import { useDisclosure } from "@mantine/hooks";
 import { useRouter } from 'next/navigation';
 
 
 export default function SignUpPage() {
+  const [visible, toggle] = useDisclosure(false);
+
   const router = useRouter();
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: { name: '', email: '', password: '' },
+    validateInputOnChange: true,
 
     // functions will be used to validate values at corresponding key
     validate: {
-      name: (value) => (value.length < 1 ? 'Name must have at least 1 character' : null),
+      name: (value) => (value.length < 3 ? 'Name must have at least 3 characters' : null),
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-      password: (value) => (value.length < 6 ? 'Password must have at least 6 characters' : null),
+      password: (value) => (value.length < 10 ? 'Password must have at least 10 characters' : null),
     },
 
 
   });
+
+  const handleSignUp = async (values: any) => {
+    console.log(values);
+    toggle.open();
+    const response = await signUpWithEmail(values);
+    toggle.close();
+    console.log(response);
+  }
 
 
 
@@ -38,9 +50,15 @@ export default function SignUpPage() {
         </Text>
 
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <form onSubmit={form.onSubmit((values) => {
+          <LoadingOverlay
+            visible={visible}
+            zIndex={1000}
+            overlayProps={{ radius: 'sm', blur: 2 }}
+            loaderProps={{ color: 'san-marino', type: 'bars' }}
+          />
 
-            signUpWithEmail(values);
+          <form onSubmit={form.onSubmit((values) => {
+            handleSignUp(values);
           })} >
             <TextInput
               label="Name"
