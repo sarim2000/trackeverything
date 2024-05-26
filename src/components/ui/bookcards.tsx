@@ -33,9 +33,9 @@ export default function BookCardComponent({ books }: { books: Book[] }) {
             </Group>
 
             <Text size="sm" c="dimmed" lineClamp={4} style={{ minHeight: '80px' }}>
-              {
-                book.first_sentence && book.first_sentence.length > 0 ? book.first_sentence[0] : "No Info Available"
-              }
+              {book.first_sentence && book.first_sentence.length > 0
+                ? book.first_sentence[0]
+                : 'No Info Available'}
             </Text>
             <Link href={`/book${book.key}`} style={{ textDecoration: 'none' }}>
               <Button fullWidth mt="md" radius="md">

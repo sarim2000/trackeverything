@@ -1,11 +1,23 @@
-"use client";
+'use client';
 
-import { getLoggedInUser, signInWithEmail, signUpWithEmail } from "@/lib/actions/user.actions";
-import { Container, Title, Anchor, Paper, TextInput, PasswordInput, Group, Checkbox, Button, Text, NumberInput, LoadingOverlay } from "@mantine/core";
+import { getLoggedInUser, signInWithEmail, signUpWithEmail } from '@/lib/actions/user.actions';
+import {
+  Container,
+  Title,
+  Anchor,
+  Paper,
+  TextInput,
+  PasswordInput,
+  Group,
+  Checkbox,
+  Button,
+  Text,
+  NumberInput,
+  LoadingOverlay,
+} from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure } from '@mantine/hooks';
 import { useRouter } from 'next/navigation';
-
 
 export default function SignUpPage() {
   const [visible, toggle] = useDisclosure(false);
@@ -22,8 +34,6 @@ export default function SignUpPage() {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
       password: (value) => (value.length < 10 ? 'Password must have at least 10 characters' : null),
     },
-
-
   });
 
   const handleSignUp = async (values: any) => {
@@ -32,16 +42,12 @@ export default function SignUpPage() {
     const response = await signUpWithEmail(values);
     toggle.close();
     console.log(response);
-  }
-
-
+  };
 
   return (
     <>
       <Container size={420} my={40}>
-        <Title ta="center" >
-          Sign Up
-        </Title>
+        <Title ta="center">Sign Up</Title>
         <Text c="dimmed" size="sm" ta="center" mt={5}>
           Already have an account?{' '}
           <Anchor size="sm" component="button" onClick={() => router.push('/signin')}>
@@ -57,9 +63,11 @@ export default function SignUpPage() {
             loaderProps={{ color: 'san-marino', type: 'bars' }}
           />
 
-          <form onSubmit={form.onSubmit((values) => {
-            handleSignUp(values);
-          })} >
+          <form
+            onSubmit={form.onSubmit((values) => {
+              handleSignUp(values);
+            })}
+          >
             <TextInput
               label="Name"
               placeholder="Name"
@@ -73,7 +81,6 @@ export default function SignUpPage() {
               key={form.key('email')}
               {...form.getInputProps('email')}
               mb={10}
-
             />
             <TextInput
               mt="sm"
@@ -82,7 +89,6 @@ export default function SignUpPage() {
               placeholder="Password"
               key={form.key('password')}
               mb={10}
-
               {...form.getInputProps('password')}
             />
 
@@ -95,4 +101,3 @@ export default function SignUpPage() {
     </>
   );
 }
-

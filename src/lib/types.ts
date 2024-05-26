@@ -5,5 +5,5 @@ export type Book = {
   edition_count: string;
   first_publish_year: string;
   title: string;
-  first_sentence: string[]
+  first_sentence: string[];
 };

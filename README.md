@@ -2,16 +2,17 @@
 
 ## TODO (follow one by one)
 
-- [X] complete auth
-- [X] set up database for users\
+- [x] complete auth
+- [x] set up database for users\
 - [ ] set up database for books
 
 Update:
-1. create book db and user db
+
+1. created book db and user db
 2. established a relation between them, able to send data (confused about relations)
-3. next steps figure out relationship between books and users
-
-
+3. Show sign up and sign in error feedback
+4. next steps figure out relationship between books and users
+5. then profile page showing my books
 
 ### what
 
@@ -32,7 +33,6 @@ An app where user can track books,movies, tv, games and get recommendation from 
 4. add reviews
 
 ### Complete By
-
 
 ### planned services
 

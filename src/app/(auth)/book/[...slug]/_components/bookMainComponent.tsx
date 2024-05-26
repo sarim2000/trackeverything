@@ -36,7 +36,7 @@ export default function BookMainComponent({
       </Container>
       <Box>
         <Button
-          onClick={async () => await sumbitBooks({title, description, cover_img})}
+          onClick={async () => await sumbitBooks({ title, description, cover_img })}
           variant="light"
           leftSection={<IconBook size={14} />}
           rightSection={<IconArrowRight size={14} />}

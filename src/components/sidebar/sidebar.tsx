@@ -11,8 +11,7 @@ import {
 import Link from 'next/link';
 import { useState } from 'react';
 import classes from './sidebar.module.css';
-import { usePathname } from 'next/navigation'
-
+import { usePathname } from 'next/navigation';
 
 import { logoutAccount } from '@/lib/actions/user.actions';
 
@@ -24,7 +23,7 @@ const data = [
 ];
 
 export function Sidebar({ toggle }: { toggle: () => void }) {
-  const pathname = usePathname()
+  const pathname = usePathname();
   const [active, setActive] = useState(pathname);
 
   const links = data.map((item) => (

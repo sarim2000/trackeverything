@@ -19,9 +19,17 @@ export default async function getBooks(name: string) {
             edition_count: string;
             first_publish_year: string;
             title: string;
-            first_sentence: string[]
+            first_sentence: string[];
           }) => {
-            const { key, author_name, cover_i, edition_count, first_publish_year, title, first_sentence } = book;
+            const {
+              key,
+              author_name,
+              cover_i,
+              edition_count,
+              first_publish_year,
+              title,
+              first_sentence,
+            } = book;
 
             return {
               key,
@@ -30,7 +38,7 @@ export default async function getBooks(name: string) {
               edition_count,
               first_publish_year,
               title,
-              first_sentence
+              first_sentence,
             };
           }
         );

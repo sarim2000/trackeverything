@@ -1,10 +1,9 @@
-import React from "react";
+import React from 'react';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import { theme } from '@/lib/theme';
 import '@mantine/core/styles.css';
-import { getLoggedInUser } from "@/lib/actions/user.actions";
-import { redirect } from "next/navigation";
-
+import { getLoggedInUser } from '@/lib/actions/user.actions';
+import { redirect } from 'next/navigation';
 
 export const metadata = {
   title: 'TrackeEverything',
@@ -14,18 +13,18 @@ export const metadata = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const user = await getLoggedInUser();
   if (user) {
-    redirect("/book");
+    redirect('/book');
   }
   return (
     <html lang="en">
-    <head>
-      <ColorSchemeScript />
-    </head>
-    <body>
-    <MantineProvider theme={theme} defaultColorScheme="dark">
-      {children}
-    </MantineProvider>
-    </body>
+      <head>
+        <ColorSchemeScript />
+      </head>
+      <body>
+        <MantineProvider theme={theme} defaultColorScheme="dark">
+          {children}
+        </MantineProvider>
+      </body>
     </html>
   );
 }

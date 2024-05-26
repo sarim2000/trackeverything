@@ -1,17 +1,13 @@
-"use server";
+'use server';
 
-import { createAdminClient, createSessionClient } from "@/lib/appwrite";
-import { ID, Query } from "node-appwrite";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import { parseStringify } from "../utils";
+import { createAdminClient, createSessionClient } from '@/lib/appwrite';
+import { ID, Query } from 'node-appwrite';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { parseStringify } from '../utils';
 
-
-const {
-  APPWRITE_DATABASE_ID: DATABASE_ID,
-  APPWRITE_USER_COLLECTION_ID: USER_COLLECTION_ID,
-} = process.env;
-
+const { APPWRITE_DATABASE_ID: DATABASE_ID, APPWRITE_USER_COLLECTION_ID: USER_COLLECTION_ID } =
+  process.env;
 
 export async function getLoggedInUser() {
   try {
@@ -26,25 +22,18 @@ export const getUserInfo = async ({ userId }: { userId: string }) => {
   try {
     const { database } = await createAdminClient();
 
-    const user = await database.listDocuments(
-      DATABASE_ID!,
-      USER_COLLECTION_ID!,
-      [Query.equal('userId', userId)]
-    )
-    console.log("🚀 ~ getUserInfo ~ user:", user)
+    const user = await database.listDocuments(DATABASE_ID!, USER_COLLECTION_ID!, [
+      Query.equal('userId', userId),
+    ]);
+    console.log('🚀 ~ getUserInfo ~ user:', user);
 
     return parseStringify(user.documents[0]);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
-
-export async function signUpWithEmail(formData: {
-  email: string;
-  password: string;
-  name: string;
-}) {
+export async function signUpWithEmail(formData: { email: string; password: string; name: string }) {
   const email = formData.email;
   const password = formData.password;
   const name = formData.name;
@@ -52,65 +41,48 @@ export async function signUpWithEmail(formData: {
   let newUserAccount;
   try {
     const { account, database } = await createAdminClient();
-    newUserAccount = await account.create(
-      ID.unique(),
-      email,
-      password,
-      name
-    )
+    newUserAccount = await account.create(ID.unique(), email, password, name);
 
-    if (!newUserAccount) throw new Error('Error creating user')
+    if (!newUserAccount) throw new Error('Error creating user');
 
-    const newUser = await database.createDocument(
-      DATABASE_ID!,
-      USER_COLLECTION_ID!,
-      ID.unique(),
-      {
-        name: name,
-        email: email,
-        userId: newUserAccount.$id,
-      }
-    )
+    const newUser = await database.createDocument(DATABASE_ID!, USER_COLLECTION_ID!, ID.unique(), {
+      name: name,
+      email: email,
+      userId: newUserAccount.$id,
+    });
     const session = await account.createEmailPasswordSession(email, password);
 
-    cookies().set("appwrite-session", session.secret, {
-      path: "/",
+    cookies().set('appwrite-session', session.secret, {
+      path: '/',
       httpOnly: true,
-      sameSite: "strict",
-      secure: true
+      sameSite: 'strict',
+      secure: true,
     });
 
-    redirect("/books");
+    redirect('/books');
   } catch (error) {
     console.log(error);
     return {
       success: false,
       message: 'Error creating user',
       user: null,
-    }
+    };
   }
-
-
-
 }
 
-export async function signInWithEmail(formData: {
-  email: string;
-  password: string;
-}) {
+export async function signInWithEmail(formData: { email: string; password: string }) {
   try {
     const { account } = await createAdminClient();
     const session = await account.createEmailPasswordSession(formData.email, formData.password);
 
-    cookies().set("appwrite-session", session.secret, {
-      path: "/",
+    cookies().set('appwrite-session', session.secret, {
+      path: '/',
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: 'strict',
       secure: true,
     });
 
-
-    redirect("/books");
+    redirect('/books');
   } catch (error) {
     console.error('Error', error);
   }
@@ -126,4 +98,4 @@ export const logoutAccount = async () => {
   } catch (error) {
     return null;
   }
-}
+};

@@ -1,5 +1,5 @@
 import { Title, Text, Button, Container } from '@mantine/core';
-import classes from '@/styles/Herotext.module.css'
+import classes from '@/styles/Herotext.module.css';
 import Link from 'next/link';
 import { Dots } from '@/components/ui/Dots';
 
@@ -22,13 +22,13 @@ export default function HeroText() {
 
         <Container p={0} size={600}>
           <Text size="lg" c="dimmed" className={classes.description}>
-            Effortlessly track and organize your favorite books, movies, TV shows, and video games. Never lose track of your entertainment journey again!
+            Effortlessly track and organize your favorite books, movies, TV shows, and video games.
+            Never lose track of your entertainment journey again!
           </Text>
         </Container>
         <div className={classes.controls}>
           <Button className={classes.control} size="lg" variant="default" color="gray" radius="md">
             <Link href="/signin" style={{ textDecoration: 'none', color: 'white' }}>
-
               Welcome Back
             </Link>
           </Button>
@@ -37,7 +37,6 @@ export default function HeroText() {
               Get Started
             </Link>
           </Button>
-
         </div>
       </div>
     </Container>
