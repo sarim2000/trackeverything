@@ -16,7 +16,7 @@ import { usePathname } from 'next/navigation';
 import { logoutAccount } from '@/lib/actions/user.actions';
 
 const data = [
-  { link: '/', label: 'All', icon: IconHome },
+  { link: '/home', label: 'All', icon: IconHome },
   { link: '/book', label: 'Books', icon: IconBooks },
   { link: '', label: 'Movies / TV Shows', icon: IconMovie },
   { link: '', label: 'Games', icon: IconDeviceGamepad },

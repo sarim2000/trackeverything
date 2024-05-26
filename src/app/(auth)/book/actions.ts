@@ -42,7 +42,6 @@ export default async function getBooks(name: string) {
             };
           }
         );
-      console.log('🚀 ~ getBooks ~ newBooks:', newBooks);
 
       return newBooks;
     }
