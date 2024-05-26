@@ -22,7 +22,7 @@ const data = [
   { link: '', label: 'Games', icon: IconDeviceGamepad },
 ];
 
-export function Sidebar({ toggle }: { toggle: () => void }) {
+export function Sidebar({ toggle }: { toggle: any }) {
   const pathname = usePathname();
   const [active, setActive] = useState(pathname);
 

@@ -25,7 +25,6 @@ export const getUserInfo = async ({ userId }: { userId: string }) => {
     const user = await database.listDocuments(DATABASE_ID!, USER_COLLECTION_ID!, [
       Query.equal('userId', userId),
     ]);
-    console.log('🚀 ~ getUserInfo ~ user:', user);
 
     return parseStringify(user.documents[0]);
   } catch (error) {

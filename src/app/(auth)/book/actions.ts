@@ -2,9 +2,7 @@
 
 export default async function getBooks(name: string) {
   try {
-    const res = await fetch(`http://openlibrary.org/search.json?title=${name}&limit=30`, {
-      next: { revalidate: 3600 },
-    });
+    const res = await fetch(`http://openlibrary.org/search.json?title=${name}&limit=10`);
     const data = await res.json();
     const { docs } = data;
 

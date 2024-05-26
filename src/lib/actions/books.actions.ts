@@ -1,7 +1,7 @@
 'use server';
 
 import { createAdminClient, createSessionClient } from '@/lib/appwrite';
-import { ID } from 'node-appwrite';
+import { ID, Query } from 'node-appwrite';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getUserInfo } from './user.actions';
@@ -11,6 +11,15 @@ const {
   APPWRITE_USER_COLLECTION_ID: USER_COLLECTION_ID,
   APPWRITE_BOOK_COLLECTION_ID: BOOK_COLLECTION_ID,
 } = process.env;
+
+export async function getBooksByUserId() {
+  const { database } = await createAdminClient();
+  const { account } = await createSessionClient();
+  const result = await account.get();
+  const userInfo = await getUserInfo({ userId: result.$id });
+
+  return userInfo.books;
+}
 
 export async function sumbitBooks({
   title,
@@ -60,15 +69,4 @@ export async function sumbitBooks({
       message: 'Error adding book to your library',
     };
   }
-
-
-  // const bookResponse = await database.updateDocument(
-  //   DATABASE_ID!,
-  //   BOOK_COLLECTION_ID!,
-  //   id,
-  //   {
-  //     users: [userInfo.$id],
-  //   }
-  // );
-  // console.log('🚀 ~ sumbitBooks ~ bookResponse:', bookResponse);
 }
