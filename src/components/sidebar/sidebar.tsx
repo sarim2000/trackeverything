@@ -34,7 +34,7 @@ export function Sidebar({ toggle }: { toggle: () => void }) {
       key={item.label}
       onClick={(event) => {
         toggle();
-        setActive(item.label);
+        setActive(item.link);
       }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />

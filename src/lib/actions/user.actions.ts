@@ -60,13 +60,20 @@ export async function signUpWithEmail(formData: { email: string; password: strin
     });
 
     redirect('/books');
-  } catch (error) {
-    console.log(error);
-    return {
-      success: false,
-      message: 'Error creating user',
-      user: null,
-    };
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return {
+        success: false,
+        message: error.message,
+        user: null,
+      };
+    } else {
+      return {
+        success: false,
+        message: 'An unknown error occurred',
+        user: null,
+      };
+    }
   }
 }
 
@@ -83,8 +90,20 @@ export async function signInWithEmail(formData: { email: string; password: strin
     });
 
     redirect('/books');
-  } catch (error) {
-    console.error('Error', error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return {
+        success: false,
+        message: error.message,
+        user: null,
+      };
+    } else {
+      return {
+        success: false,
+        message: 'An unknown error occurred',
+        user: null,
+      };
+    }
   }
 }
 

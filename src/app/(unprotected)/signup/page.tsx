@@ -18,9 +18,11 @@ import {
 import { useForm } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function SignUpPage() {
   const [visible, toggle] = useDisclosure(false);
+  const [error, setError] = useState<string | null>(null)
 
   const router = useRouter();
   const form = useForm({
@@ -37,11 +39,13 @@ export default function SignUpPage() {
   });
 
   const handleSignUp = async (values: any) => {
+    setError(null);
     console.log(values);
     toggle.open();
     const response = await signUpWithEmail(values);
     toggle.close();
     console.log(response);
+    setError(response.message);
   };
 
   return (
@@ -54,6 +58,7 @@ export default function SignUpPage() {
             Sign in
           </Anchor>
         </Text>
+        
 
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <LoadingOverlay
@@ -62,6 +67,14 @@ export default function SignUpPage() {
             overlayProps={{ radius: 'sm', blur: 2 }}
             loaderProps={{ color: 'san-marino', type: 'bars' }}
           />
+          {
+            error && (
+              <Text c="red" size="sm" ta="center" mt={5}>
+                {error}
+              </Text>
+            )
+          }
+          
 
           <form
             onSubmit={form.onSubmit((values) => {

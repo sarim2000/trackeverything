@@ -2,22 +2,28 @@
 
 import { getLoggedInUser, signInWithEmail, signUpWithEmail } from '@/lib/actions/user.actions';
 import {
-  Container,
-  Title,
   Anchor,
-  Paper,
-  TextInput,
-  PasswordInput,
-  Group,
-  Checkbox,
   Button,
-  Text,
+  Checkbox,
+  Container,
+  Group,
+  LoadingOverlay,
   NumberInput,
+  Paper,
+  PasswordInput,
+  Text,
+  TextInput,
+  Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useDisclosure } from '@mantine/hooks';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function SignUpPage() {
+  const [visible, toggle] = useDisclosure(false);
+  const [error, setError] = useState<string | null>(null);
+
   const router = useRouter();
   const form = useForm({
     mode: 'uncontrolled',
@@ -31,6 +37,16 @@ export default function SignUpPage() {
     },
   });
 
+  const handleSignIn = async (values: { email: string; password: string }) => {
+    setError(null);
+    console.log(values);
+    toggle.open();
+    const response = await signInWithEmail(values);
+    toggle.close();
+    console.log(response);
+    setError(response.message);
+  };
+
   return (
     <>
       <Container size={420} my={40}>
@@ -43,9 +59,22 @@ export default function SignUpPage() {
         </Text>
 
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+          <LoadingOverlay
+            visible={visible}
+            zIndex={1000}
+            overlayProps={{ radius: 'sm', blur: 2 }}
+            loaderProps={{ color: 'san-marino', type: 'bars' }}
+          />
+          {
+            error && (
+              <Text c="red" size="sm" ta="center" mt={5}>
+                {error}
+              </Text>
+            )
+          }
           <form
             onSubmit={form.onSubmit((values) => {
-              signInWithEmail(values);
+              handleSignIn(values);
             })}
           >
             <TextInput
