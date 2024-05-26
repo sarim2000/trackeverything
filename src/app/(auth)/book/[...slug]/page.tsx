@@ -8,6 +8,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return (
     <BookMainComponent
+      key={params.slug[1]}
+      id={params.slug[1]}
       description={
         typeof data.description === 'object'
           ? data.description.value

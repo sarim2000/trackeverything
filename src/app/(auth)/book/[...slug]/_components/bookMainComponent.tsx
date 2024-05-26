@@ -13,21 +13,49 @@ import {
   Title,
 } from '@mantine/core';
 import { IconArrowRight, IconBook, IconPhoto } from '@tabler/icons-react';
+import { IconX, IconCheck } from '@tabler/icons-react';
+import { Notification, rem } from '@mantine/core';
+import { useState } from 'react';
+
+
+type Notification = {
+  type: 'success' | 'error';
+  message: string;
+}
 
 export default function BookMainComponent({
+  id,
   description,
   title,
   cover_img,
   subjects,
 }: {
+  id: string;
   description: string;
   title: string;
   cover_img: string;
   subjects: string[];
 }) {
-  console.log('🚀 ~ subjects:', subjects);
+  const [notification, setNotification] = useState<Notification | null>(null);
+  const xIcon = <IconX style={{ width: rem(20), height: rem(20) }} />;
+  const checkIcon = <IconCheck style={{ width: rem(20), height: rem(20) }} />;
+  const handleAddBook = async () => {
+    const bookResponse = await sumbitBooks({ title, description, cover_img, id });
+    console.log('🚀 ~ handleAddBook ~ bookResponse:', bookResponse);
+    if (bookResponse.type === 'error') {
+      setNotification({ type: 'error', message: bookResponse.message });
+    } else {
+      setNotification({ type: 'success', message: bookResponse.message });
+    }
+  };
+
   return (
     <Flex direction={'column'} align={'center'} gap={'lg'}>
+      {notification && (
+        <Notification icon={notification.type === 'error' ? xIcon : checkIcon} color={notification.type === 'error' ? 'red' : 'green'} title={notification.type === 'error' ? 'Bummer!' : 'Great!'} onClose={() => setNotification(null)}>
+          {notification.message}
+        </Notification>
+      )}
       <Box>
         <Title order={1}>{title}</Title>
       </Box>
@@ -36,7 +64,7 @@ export default function BookMainComponent({
       </Container>
       <Box>
         <Button
-          onClick={async () => await sumbitBooks({ title, description, cover_img })}
+          onClick={handleAddBook}
           variant="light"
           leftSection={<IconBook size={14} />}
           rightSection={<IconArrowRight size={14} />}

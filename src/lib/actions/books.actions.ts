@@ -16,25 +16,59 @@ export async function sumbitBooks({
   title,
   description,
   cover_img,
+  id,
 }: {
   title: string;
   description: string;
   cover_img: string;
+  id: string;
 }) {
-  const { database } = await createAdminClient();
-  const { account } = await createSessionClient();
-  const result = await account.get();
-  const userInfo = await getUserInfo({ userId: result.$id });
-  const bookResponse = await database.createDocument(
-    DATABASE_ID!,
-    BOOK_COLLECTION_ID!,
-    ID.unique(),
-    {
-      title: title,
-      description: description,
-      cover_img: cover_img,
-      users: [userInfo.$id],
+  try {
+    const { database } = await createAdminClient();
+    const { account } = await createSessionClient();
+    const result = await account.get();
+    const userInfo = await getUserInfo({ userId: result.$id });
+    const bookExists: any = await database.getDocument(DATABASE_ID!, BOOK_COLLECTION_ID!, id);
+    console.log('🚀 ~ sumbitBooks ~ bookExists:', bookExists.users);
+    if (bookExists) {
+      const users = bookExists.users.includes(userInfo.$id) ? bookExists.users : [...bookExists.users, userInfo.$id];
+      console.log('🚀 ~ sumbitBooks ~ users:', users);
+      await database.updateDocument(DATABASE_ID!, BOOK_COLLECTION_ID!, id, {
+        users: users,
+      }).then((response) => {
+        console.log('🚀 ~ sumbitBooks ~ response:', response);
+      });
     }
-  );
-  console.log('🚀 ~ sumbitBooks ~ bookResponse:', bookResponse);
+    else {
+      const bookResponse = await database.updateDocument(
+        DATABASE_ID!,
+        BOOK_COLLECTION_ID!,
+        id,
+        {
+          users: [userInfo.$id],
+        }
+      );
+    }
+
+    return {
+      type: 'success',
+      message: 'Book added to your library',
+    };
+  } catch (error) {
+    return {
+      type: 'error',
+      message: 'Error adding book to your library',
+    };
+  }
+
+
+  // const bookResponse = await database.updateDocument(
+  //   DATABASE_ID!,
+  //   BOOK_COLLECTION_ID!,
+  //   id,
+  //   {
+  //     users: [userInfo.$id],
+  //   }
+  // );
+  // console.log('🚀 ~ sumbitBooks ~ bookResponse:', bookResponse);
 }
