@@ -14,6 +14,7 @@ export function Dots({ size = 185, radius = 2.5, ...others }: DotsProps) {
 			height={size}
 			{...others}
 		>
+			<title>Dots</title>
 			<rect width="5" height="5" rx={radius} />
 			<rect width="5" height="5" x="60" rx={radius} />
 			<rect width="5" height="5" x="120" rx={radius} />

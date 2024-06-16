@@ -14,6 +14,7 @@ import {
 import Link from "next/link";
 
 export default function BookCardComponent({ book }: { book: Book }) {
+	console.log(book.first_sentence);
 	return (
 		<Card
 			shadow="sm"
@@ -42,7 +43,7 @@ export default function BookCardComponent({ book }: { book: Book }) {
 					? book.first_sentence[0]
 					: "No Info Available"}
 			</Text>
-			<Link href={`/book${book.key}`} style={{ textDecoration: "none" }}>
+			<Link href={`/book/${book.key}`} style={{ textDecoration: "none" }}>
 				<Button fullWidth mt="md" radius="md">
 					View
 				</Button>

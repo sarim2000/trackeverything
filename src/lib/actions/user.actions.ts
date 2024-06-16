@@ -75,7 +75,7 @@ export async function signUpWithEmail(formData: {
 			secure: true,
 		});
 
-		redirect("/books");
+		redirect("/homexs");
 	} catch (error: unknown) {
 		if (error instanceof Error) {
 			return {
@@ -110,7 +110,7 @@ export async function signInWithEmail(formData: {
 			secure: true,
 		});
 
-		redirect("/books");
+		redirect("/home");
 	} catch (error: unknown) {
 		if (error instanceof Error) {
 			return {

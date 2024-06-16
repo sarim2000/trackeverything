@@ -14,7 +14,7 @@ export default async function RootLayout({
 }: { children: React.ReactNode }) {
 	const user = await getLoggedInUser();
 	if (user) {
-		redirect("/book");
+		redirect("/home");
 	}
 	return (
 		<html lang="en">

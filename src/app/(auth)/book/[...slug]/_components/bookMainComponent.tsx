@@ -17,7 +17,7 @@ import { IconArrowRight, IconBook, IconPhoto } from "@tabler/icons-react";
 import { IconCheck, IconX } from "@tabler/icons-react";
 import { useState } from "react";
 
-type Notification = {
+type NotificationType = {
 	type: "success" | "error";
 	message: string;
 };
@@ -35,9 +35,11 @@ export default function BookMainComponent({
 	cover_img: string;
 	subjects: string[];
 }) {
-	const [notification, setNotification] = useState<Notification | null>(null);
+	const [notification, setNotification] = useState<NotificationType | null>(null);
 	const xIcon = <IconX style={{ width: rem(20), height: rem(20) }} />;
 	const checkIcon = <IconCheck style={{ width: rem(20), height: rem(20) }} />;
+	const [isLoading, setIsLoading] = useState(false);
+
 	const handleAddBook = async () => {
 		const bookResponse = await sumbitBooks({
 			title,
@@ -45,7 +47,6 @@ export default function BookMainComponent({
 			cover_img,
 			id,
 		});
-		console.log("🚀 ~ handleAddBook ~ bookResponse:", bookResponse);
 		if (bookResponse.type === "error") {
 			setNotification({ type: "error", message: bookResponse.message });
 		} else {
@@ -83,8 +84,8 @@ export default function BookMainComponent({
 			</Box>
 			<Box style={{ width: "100%" }}>
 				<Flex wrap={"wrap"} gap={"md"} align={"center"}>
-					{subjects.slice(0, 5).map((subject, ind) => (
-						<Badge key={ind}>{subject}</Badge>
+					{subjects.slice(0, 5).map((subject) => (
+						<Badge key={subject}>{subject}</Badge>
 					))}
 				</Flex>
 			</Box>

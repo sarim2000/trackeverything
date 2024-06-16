@@ -55,13 +55,18 @@ export function Sidebar({ toggle }: { toggle: () => void }) {
 			<div className={classes.footer}>
 				<Button
 					className={classes.link}
+					variant="subtle"
 					onClick={(event) => event.preventDefault()}
 				>
 					<IconSettings className={classes.linkIcon} stroke={1.5} />
 					<span>Profile</span>
 				</Button>
 
-				<Button className={classes.link} onClick={() => logoutAccount()}>
+				<Button
+					className={classes.link}
+					onClick={() => logoutAccount()}
+					variant="subtle"
+				>
 					<IconLogout className={classes.linkIcon} stroke={1.5} />
 					<span>Logout</span>
 				</Button>

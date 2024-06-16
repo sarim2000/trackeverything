@@ -7,3 +7,10 @@ export type Book = {
 	title: string;
 	first_sentence: string[];
 };
+export type MyBook = {
+	key: string;
+	$id: string;
+	cover_i: string;
+	title: string;
+	first_sentence: string[];
+};

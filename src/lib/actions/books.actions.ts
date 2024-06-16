@@ -17,7 +17,7 @@ export async function getBooksByUserId() {
 	const { account } = await createSessionClient();
 	const result = await account.get();
 	const userInfo = await getUserInfo({ userId: result.$id });
-
+	console.log("userinfo", userInfo);
 	return userInfo.books;
 }
 
@@ -37,34 +37,21 @@ export async function sumbitBooks({
 		const { account } = await createSessionClient();
 		const result = await account.get();
 		const userInfo = await getUserInfo({ userId: result.$id });
-		const bookExists = await database.getDocument(
+		const bookExists = false
+
+		await database.createDocument(
 			DATABASE_ID || "",
 			BOOK_COLLECTION_ID || "",
-			id,
+			ID.unique(),
+			{
+				users: [userInfo.$id],
+				title,
+				first_sentence: description,
+				cover_i: cover_img,
+				key: id,
+			},
 		);
-		console.log("🚀 ~ sumbitBooks ~ bookExists:", bookExists.users);
-		if (bookExists) {
-			const users = bookExists.users.includes(userInfo.$id)
-				? bookExists.users
-				: [...bookExists.users, userInfo.$id];
-			console.log("🚀 ~ sumbitBooks ~ users:", users);
-			await database
-				.updateDocument(DATABASE_ID || "", BOOK_COLLECTION_ID || "", id, {
-					users: users,
-				})
-				.then((response) => {
-					console.log("🚀 ~ sumbitBooks ~ response:", response);
-				});
-		} else {
-			const bookResponse = await database.updateDocument(
-				DATABASE_ID || "",
-				BOOK_COLLECTION_ID || "",
-				id,
-				{
-					users: [userInfo.$id],
-				},
-			);
-		}
+
 
 		return {
 			type: "success",
@@ -73,7 +60,7 @@ export async function sumbitBooks({
 	} catch (error) {
 		return {
 			type: "error",
-			message: "Error adding book to your library",
+			message: `Error adding book to your library ${error}`,
 		};
 	}
 }
