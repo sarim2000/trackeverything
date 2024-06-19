@@ -3,6 +3,8 @@ import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { getLoggedInUser } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
+import "@mantine/nprogress/styles.css";
+import { NavigationProgress } from "@mantine/nprogress";
 
 export const metadata = {
 	title: "TrackeEverything",
@@ -23,6 +25,7 @@ export default async function RootLayout({
 			</head>
 			<body>
 				<MantineProvider theme={theme} defaultColorScheme="dark">
+					<NavigationProgress />
 					{children}
 				</MantineProvider>
 			</body>

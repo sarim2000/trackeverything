@@ -4,7 +4,8 @@
 
 - [x] complete auth
 - [x] set up database for users\
-- [ ] set up database for books
+- [x] set up database for books
+- [ ] complete mybooks page that let user remove it, give rating, number of users that read it
 
 Update:
 

@@ -7,6 +7,8 @@ import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { redirect } from "next/navigation";
 import "@mantine/core/styles.css";
 import Structure from "@/components/ui/structure";
+import "@mantine/nprogress/styles.css";
+import { NavigationProgress } from "@mantine/nprogress";
 
 export const metadata = {
 	title: "My tracker app",
@@ -26,6 +28,7 @@ export default async function RootLayout({
 			</head>
 			<body>
 				<MantineProvider theme={theme} defaultColorScheme="dark">
+					<NavigationProgress />
 					<Structure>{children}</Structure>
 				</MantineProvider>
 			</body>
