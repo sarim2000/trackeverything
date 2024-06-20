@@ -1,6 +1,7 @@
 # trackeverything webapp
 
 ## TODO (follow one by one)
+- [ ] Shift to drizzle and supabase
 
 - [x] complete auth
 - [x] set up database for users\

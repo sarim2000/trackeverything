@@ -38,13 +38,14 @@ export async function sumbitBooks({
 		const result = await account.get();
 		const userInfo = await getUserInfo({ userId: result.$id });
 		const bookExists = false
+		const totalUsers = (await database.getDocument(DATABASE_ID || "", BOOK_COLLECTION_ID || "", id))
 
 		await database.createDocument(
 			DATABASE_ID || "",
 			BOOK_COLLECTION_ID || "",
 			ID.unique(),
 			{
-				users: [userInfo.$id],
+				totalUsers: [userInfo.$id],
 				title,
 				first_sentence: description,
 				cover_i: cover_img,
