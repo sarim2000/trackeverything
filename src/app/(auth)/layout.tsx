@@ -11,27 +11,26 @@ import "@mantine/nprogress/styles.css";
 import { NavigationProgress } from "@mantine/nprogress";
 
 export const metadata = {
-	title: "My tracker app",
-	description: "working hopefully",
+  title: "My tracker app",
+  description: "working hopefully",
 };
 
 export default async function RootLayout({
-	children,
+  children,
 }: { children: React.ReactNode }) {
-	const user = await getLoggedInUser();
-	if (!user) redirect("/signup");
 
-	return (
-		<html lang="en">
-			<head>
-				<ColorSchemeScript />
-			</head>
-			<body>
-				<MantineProvider theme={theme} defaultColorScheme="dark">
-					<NavigationProgress />
-					<Structure>{children}</Structure>
-				</MantineProvider>
-			</body>
-		</html>
-	);
+
+  return (
+    <html lang="en">
+      <head>
+        <ColorSchemeScript />
+      </head>
+      <body>
+        <MantineProvider theme={theme} defaultColorScheme="dark">
+          <NavigationProgress />
+          <Structure>{children}</Structure>
+        </MantineProvider>
+      </body>
+    </html>
+  );
 }

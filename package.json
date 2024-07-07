@@ -12,13 +12,16 @@
 		"format": "prettier --write ."
 	},
 	"dependencies": {
-		"@mantine/core": "^7.10.2",
-		"@mantine/form": "^7.10.2",
-		"@mantine/hooks": "^7.10.2",
-		"@mantine/nprogress": "^7.10.2",
+		"@auth0/auth0-react": "^2.2.4",
+		"@auth0/nextjs-auth0": "^3.5.0",
+		"@mantine/core": "^7.11.1",
+		"@mantine/form": "^7.11.1",
+		"@mantine/hooks": "^7.11.1",
+		"@mantine/nprogress": "^7.11.1",
 		"@next/bundle-analyzer": "^14.2.4",
-		"@tabler/icons-react": "^3.6.0",
+		"@tabler/icons-react": "^3.8.0",
 		"appwrite": "^15.0.0",
+		"convex": "^1.13.0",
 		"next": "^14.2.4",
 		"node-appwrite": "^13.0.0",
 		"react": "^18.3.1",
@@ -26,17 +29,17 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.8.1",
-		"@types/node": "^20.14.2",
+		"@types/node": "^20.14.9",
 		"@types/react": "^18.3.3",
 		"@types/react-dom": "^18.3.0",
 		"autoprefixer": "^10.4.19",
-		"eslint": "^9.5.0",
+		"eslint": "^9.6.0",
 		"eslint-config-next": "^14.2.4",
-		"postcss": "^8.4.38",
+		"postcss": "^8.4.39",
 		"postcss-preset-mantine": "^1.15.0",
 		"postcss-simple-vars": "^7.0.1",
 		"prettier": "3.3.2",
-		"typescript": "^5.4.5"
+		"typescript": "^5.5.3"
 	},
 	"packageManager": "pnpm@9.3.0+sha512.ee7b93e0c2bd11409c6424f92b866f31d3ea1bef5fbe47d3c7500cdc3c9668833d2e55681ad66df5b640c61fa9dc25d546efa54d76d7f8bf54b13614ac293631"
 }

@@ -8,30 +8,28 @@ import HomeBookCardComponent from "./_components/homeBookCardComponent";
 export const dynamic = "force-dynamic";
 
 export default async function Page() {
-	const data = await getBooksByUserId();
-	console.log("🚀 ~ Page ~ data:", data);
-	return (
-		<Flex direction={"column"} gap={"lg"}>
-			<Box>
-				<h1>my library</h1>
-			</Box>
-			<Flex direction={"column"} gap={"lg"}>
-				{/* <Search /> */}
-				<Box>
-					{
-						data.length > 0 ? (
-							<Text size={"xl"}>my books</Text>
-						) : (
-							<Text size={"xl"}>No books found</Text>
-						)}
-					<Divider my="md" />
-					<Flex gap={"lg"} wrap={"wrap"}>
-						{data.map((book: MyBook) => {
-							return <HomeBookCardComponent key={book.key} book={book} />;
-						})}
-					</Flex>
-				</Box>
-			</Flex>
-		</Flex>
-	);
+  return (
+    <Flex direction={"column"} gap={"lg"}>
+      <Box>
+        <h1>my library</h1>
+      </Box>
+      <Flex direction={"column"} gap={"lg"}>
+        {/* <Search /> */}
+        <Box>
+          {/* {
+            data.length > 0 ? (
+              <Text size={"xl"}>my books</Text>
+            ) : (
+              <Text size={"xl"}>No books found</Text>
+            )} */}
+          <Divider my="md" />
+          <Flex gap={"lg"} wrap={"wrap"}>
+            {/* {data.map((book: MyBook) => {
+              return <HomeBookCardComponent key={book.key} book={book} />;
+            })} */}
+          </Flex>
+        </Box>
+      </Flex>
+    </Flex>
+  );
 }
