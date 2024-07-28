@@ -1,60 +1,37 @@
-import { Dots } from "@/components/ui/Dots";
-import classes from "@/styles/Herotext.module.css";
-import { getSession } from "@auth0/nextjs-auth0";
-import { Button, Container, Text, Title } from "@mantine/core";
-import Link from "next/link";
+/* eslint-disable @typescript-eslint/no-misused-promises */
 
-export default async function HeroText() {
+import { redirect } from 'next/navigation';
+import { auth, signIn } from '@src/auth';
 
-
+export default function Home() {
   return (
-    <Container className={classes.wrapper} size={1400}>
-      <Dots className={classes.dots} style={{ left: 0, top: 0 }} />
-      <Dots className={classes.dots} style={{ left: 60, top: 0 }} />
-      <Dots className={classes.dots} style={{ left: 0, top: 140 }} />
-      <Dots className={classes.dots} style={{ right: 0, top: 60 }} />
+    <>
+      <main className="container max-w-2xl flex flex-col gap-8">
+        <h1 className="text-4xl font-extrabold my-8 text-center">Convex + Next.js + Auth.js</h1>
+        <p>Here is where your marketing message goes.</p>
+        <p>The user doesn&apos;t need to log in to see it.</p>
+        <p>To interact with the app log in via the button up top.</p>
+        <SignIn />
+      </main>
+    </>
+  );
+}
 
-      <div className={classes.inner}>
-        <Title className={classes.title}>
-          Your Ultimate{" "}
-          <Text component="span" className={classes.highlight} inherit>
-            Entertainment Tracking Hub
-          </Text>{" "}
-          - All in One Place
-        </Title>
+export function SignIn() {
+  return (
+    <form
+      action={async () => {
+        'use server';
 
-        <Container p={0} size={600}>
-          <Text size="lg" c="dimmed" className={classes.description}>
-            Effortlessly track and organize your favorite books, movies, TV
-            shows, and video games. Never lose track of your entertainment
-            journey again!
-          </Text>
-        </Container>
-        <div className={classes.controls}>
-          <Button
-            className={classes.control}
-            size="lg"
-            variant="default"
-            color="gray"
-            radius="md"
-          >
-            <a
-              href="/api/auth/login"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              Welcome Back
-            </a>
-          </Button>
-          <Button className={classes.control} size="lg" radius="md">
-            <Link
-              href="/api/auth/signup"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              Get Started
-            </Link>
-          </Button>
-        </div>
-      </div>
-    </Container>
+        // Skip sign-in screen if the user is already signed in
+        if ((await auth()) !== null) {
+          redirect('/loggedin');
+        }
+
+        await signIn('google', { redirectTo: '/loggedin' });
+      }}
+    >
+      <button type="submit">Sign in</button>
+    </form>
   );
 }

@@ -1,28 +1,16 @@
-import { NextResponse } from 'next/server';
-import { getSession } from '@auth0/nextjs-auth0/edge';
-import { NextRequest } from 'next/server';
+import { auth } from '@src/auth';
 
-export async function middleware(req: NextRequest) {
-  const res = NextResponse.next();
-  const session = await getSession(req, res);
-
-  if (req.nextUrl.pathname === '/') {
-    if (session) {
-      // Redirect authenticated users away from the root path
-      return NextResponse.redirect(new URL('/home', req.url));
-    }
-    // Allow unauthenticated users to access the root path
-    return res;
+export default auth((req) => {
+  if (req.auth && req.nextUrl.pathname === '/') {
+    const newUrl = new URL('/home', req.nextUrl.origin);
+    return Response.redirect(newUrl);
   }
-
-  // For all other routes, require authentication
-  if (!session) {
-    return NextResponse.redirect(new URL('/api/auth/login', req.url));
+  if (!req.auth && req.nextUrl.pathname !== '/') {
+    const newUrl = new URL('/', req.nextUrl.origin);
+    return Response.redirect(newUrl);
   }
-
-  return res;
-}
+});
 
 export const config = {
-  matcher: ['/((?!api/auth|_next/static|_next/image|favicon.ico).*)']
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 };

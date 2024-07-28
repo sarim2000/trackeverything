@@ -1,6 +1,6 @@
-import BookMainComponent from "./_components/bookMainComponent";
+import BookMainComponent from './_components/bookMainComponent';
 
-const URL = "https://openlibrary.org/works/";
+const URL = 'https://openlibrary.org/works/';
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const resp = await fetch(`${URL}${params.slug[1]}.json`);
@@ -26,5 +26,5 @@ export default async function Page({ params }: { params: { slug: string } }) {
   // 		subjects={data.subjects ? data.subjects : ["No Subject Found"]}
   // 	/>
   // );
-  return <div>Book: {params.slug}</div>
+  return <div>Book: {params.slug}</div>;
 }

@@ -4,8 +4,7 @@
   padding: var(--mantine-spacing-md);
   display: flex;
   flex-direction: column;
-  border-right: rem(1px, 2px) solid
-    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  border-right: rem(1px, 2px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
 }
 
 .navbarMain {
@@ -45,8 +44,6 @@
       color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
     }
   }
-
-  
 }
 
 .linkIcon {

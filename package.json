@@ -1,45 +1,44 @@
 {
-	"name": "trackeverything",
-	"version": "0.1.0",
-	"private": true,
-	"type": "module",
-	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
-		"start": "next start",
-		"lint": "next lint",
-		"lint:fix": "next lint --fix",
-		"format": "prettier --write ."
-	},
-	"dependencies": {
-		"@auth0/auth0-react": "^2.2.4",
-		"@auth0/nextjs-auth0": "^3.5.0",
-		"@mantine/core": "^7.11.1",
-		"@mantine/form": "^7.11.1",
-		"@mantine/hooks": "^7.11.1",
-		"@mantine/nprogress": "^7.11.1",
-		"@next/bundle-analyzer": "^14.2.4",
-		"@tabler/icons-react": "^3.8.0",
-		"appwrite": "^15.0.0",
-		"convex": "^1.13.0",
-		"next": "^14.2.4",
-		"node-appwrite": "^13.0.0",
-		"react": "^18.3.1",
-		"react-dom": "^18.3.1"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "1.8.1",
-		"@types/node": "^20.14.9",
-		"@types/react": "^18.3.3",
-		"@types/react-dom": "^18.3.0",
-		"autoprefixer": "^10.4.19",
-		"eslint": "^9.6.0",
-		"eslint-config-next": "^14.2.4",
-		"postcss": "^8.4.39",
-		"postcss-preset-mantine": "^1.15.0",
-		"postcss-simple-vars": "^7.0.1",
-		"prettier": "3.3.2",
-		"typescript": "^5.5.3"
-	},
-	"packageManager": "pnpm@9.3.0+sha512.ee7b93e0c2bd11409c6424f92b866f31d3ea1bef5fbe47d3c7500cdc3c9668833d2e55681ad66df5b640c61fa9dc25d546efa54d76d7f8bf54b13614ac293631"
+  "name": "trackeverything",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "@auth/core": "^0.34.2",
+    "@mantine/core": "^7.11.2",
+    "@mantine/form": "^7.11.2",
+    "@mantine/hooks": "^7.11.2",
+    "@mantine/nprogress": "^7.11.2",
+    "@next/bundle-analyzer": "^14.2.5",
+    "@tabler/icons-react": "^3.11.0",
+    "convex": "^1.13.2",
+    "convex-helpers": "^0.1.49",
+    "jose": "^5.6.3",
+    "next": "^14.2.5",
+    "next-auth": "5.0.0-beta.20",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.12",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^9.8.0",
+    "eslint-config-next": "^14.2.5",
+    "postcss": "^8.4.40",
+    "postcss-preset-mantine": "^1.17.0",
+    "postcss-simple-vars": "^7.0.1",
+    "prettier": "3.3.2",
+    "typescript": "^5.5.4"
+  },
+  "packageManager": "pnpm@9.3.0+sha512.ee7b93e0c2bd11409c6424f92b866f31d3ea1bef5fbe47d3c7500cdc3c9668833d2e55681ad66df5b640c61fa9dc25d546efa54d76d7f8bf54b13614ac293631"
 }
