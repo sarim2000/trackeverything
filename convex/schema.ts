@@ -58,8 +58,17 @@ const authTables = {
   authenticators: defineTable(authenticatorSchema).index('userId', ['userId']).index('credentialID', ['credentialID']),
 };
 
+export const bookSchema = {
+  title: v.string(),
+  description: v.string(),
+  cover_img: v.string(),
+  id: v.string(),
+  userId: v.id('users'),
+};
+
 export default defineSchema({
   ...authTables,
+  books: defineTable(bookSchema),
   // your other tables
   // or pass `strictTableNameTypes: false`
   // in the second argument argument to `defineSchema`

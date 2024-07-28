@@ -24,7 +24,7 @@ export default async function Page({
           <Flex gap="md" justify="center" align="center" direction="column" wrap="wrap">
             <Search />
             <Suspense key={query} fallback={<Loading />}>
-              {/* <BookLayout query={query} /> */}
+              <BookLayout query={query} />
             </Suspense>
           </Flex>
         </Flex>

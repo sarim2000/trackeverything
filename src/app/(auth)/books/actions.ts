@@ -2,6 +2,8 @@
 
 export default async function getBooks(name: string) {
   try {
+    // delay 1 sec
+    await new Promise(resolve => setTimeout(resolve, 1000));
     const res = await fetch(`http://openlibrary.org/search.json?title=${name}&limit=10`);
     const data = await res.json();
     const { docs } = data;

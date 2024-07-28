@@ -1,9 +1,11 @@
 'use client';
-import { sumbitBooks } from '@/lib/actions/books.actions';
 import { Badge, Box, Button, Card, Container, Flex, Group, Image, Text, Title } from '@mantine/core';
 import { Notification, rem } from '@mantine/core';
+import { api } from '@src/convex/_generated/api';
 import { IconArrowRight, IconBook, IconPhoto } from '@tabler/icons-react';
 import { IconCheck, IconX } from '@tabler/icons-react';
+import { useMutation } from 'convex/react';
+import { ConvexError } from 'convex/values';
 import { useState } from 'react';
 
 type NotificationType = {
@@ -28,18 +30,21 @@ export default function BookMainComponent({
   const xIcon = <IconX style={{ width: rem(20), height: rem(20) }} />;
   const checkIcon = <IconCheck style={{ width: rem(20), height: rem(20) }} />;
   const [isLoading, setIsLoading] = useState(false);
+  const addBookMutation = useMutation(api.mutations.books.addBook);
 
   const handleAddBook = async () => {
-    const bookResponse = await sumbitBooks({
-      title,
-      description,
-      cover_img,
-      id,
-    });
-    if (bookResponse.type === 'error') {
-      setNotification({ type: 'error', message: bookResponse.message });
-    } else {
-      setNotification({ type: 'success', message: bookResponse.message });
+    setIsLoading(true);
+    try {
+      await addBookMutation({ id, title, description, cover_img });
+      setNotification({ type: 'success', message: 'Book added successfully!' });
+    } catch (error) {
+      
+      setNotification({
+        type: 'error',
+        message: error instanceof ConvexError ? (error.data as ({message: string})).message : 'An unexpected error occurred',
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -51,6 +56,7 @@ export default function BookMainComponent({
           color={notification.type === 'error' ? 'red' : 'green'}
           title={notification.type === 'error' ? 'Bummer!' : 'Great!'}
           onClose={() => setNotification(null)}
+          
         >
           {notification.message}
         </Notification>
@@ -62,13 +68,16 @@ export default function BookMainComponent({
         <Image fit="fill" src={cover_img} height={320} alt={title} />
       </Container>
       <Box>
+
         <Button
           onClick={handleAddBook}
           variant="light"
           leftSection={<IconBook size={14} />}
           rightSection={<IconArrowRight size={14} />}
+          disabled={isLoading}
+          loading={isLoading}
         >
-          Add
+          {isLoading ? 'Adding...' : 'Add'}
         </Button>
       </Box>
       <Box style={{ width: '100%' }}>

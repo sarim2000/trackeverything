@@ -1,10 +1,19 @@
-import BookCardComponent from '@/components/ui/bookcards';
+import BookCardComponent from '@/app/(auth)/books/_components/bookcards';
 import type { Book } from '@/lib/types';
-import { Flex } from '@mantine/core';
+import { Flex, Text } from '@mantine/core';
 import getBooks from './actions';
 
 export default async function BookLayout({ query }: { query: string }) {
   const books = (await getBooks(query)) as Book[];
+  // const books = [] as Book[]
+
+  if (books.length === 0) {
+    return (
+      <Flex gap={'lg'} wrap={'wrap'} justify={'center'}>
+        <Text>No books found</Text>
+      </Flex>
+    );
+  }
 
   return (
     <Flex gap={'lg'} wrap={'wrap'} justify={'center'}>

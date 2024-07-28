@@ -7,10 +7,12 @@ import { useState } from 'react';
 import classes from './sidebar.module.css';
 
 import { Button } from '@mantine/core';
+import { signOut } from 'next-auth/react';
+
 
 const data = [
   { link: '/home', label: 'All', icon: IconHome },
-  { link: '/book', label: 'Books', icon: IconBooks },
+  { link: '/books', label: 'Books', icon: IconBooks },
   { link: '', label: 'Movies / TV Shows', icon: IconMovie },
   { link: '', label: 'Games', icon: IconDeviceGamepad },
 ];
@@ -18,16 +20,18 @@ const data = [
 export function Sidebar({ toggle }: { toggle: () => void }) {
   const pathname = usePathname();
   const [active, setActive] = useState(pathname);
+  console.log("🚀 ~ Sidebar ~ active:", active)
+
+  
 
   const links = data.map((item) => (
     <Link
       className={classes.link}
-      data-active={item.link === active || undefined}
+      data-active={pathname === item.link}
       href={item.link}
       key={item.label}
       onClick={(event) => {
         toggle();
-        setActive(item.link);
       }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
@@ -45,15 +49,15 @@ export function Sidebar({ toggle }: { toggle: () => void }) {
       </div>
 
       <div className={classes.footer}>
-        <Button className={classes.link} variant="subtle" onClick={(event) => event.preventDefault()}>
+        <Button className={classes.link} variant="subtle">
           <IconSettings className={classes.linkIcon} stroke={1.5} />
           <span>Profile</span>
         </Button>
 
-        <a className={classes.link} href="/api/auth/logout">
+        <Button className={classes.link} variant="subtle" onClick={() => signOut()}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>
-        </a>
+        </Button>
       </div>
     </nav>
   );

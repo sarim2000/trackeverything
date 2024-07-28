@@ -1,6 +1,5 @@
-import BookCardComponent from '@/components/ui/bookcards';
+import BookCardComponent from '@/app/(auth)/books/_components/bookcards';
 import Search from '@/components/ui/search';
-import { getBooksByUserId } from '@/lib/actions/books.actions';
 import type { Book, MyBook } from '@/lib/types';
 import { Box, Divider, Flex, Text } from '@mantine/core';
 import HomeBookCardComponent from './_components/homeBookCardComponent';
@@ -13,6 +12,7 @@ export default async function Page() {
       <Box>
         <h1>my library</h1>
       </Box>
+      
       <Flex direction={'column'} gap={'lg'}>
         {/* <Search /> */}
         <Box>

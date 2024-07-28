@@ -1,7 +1,6 @@
 // Import styles of packages that you've installed.
 // All packages except `@mantine/hooks` require styles imports
 import '@mantine/core/styles.css';
-import { getLoggedInUser } from '@/lib/actions/user.actions';
 import { theme } from '@/lib/theme';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import { redirect } from 'next/navigation';
@@ -16,17 +15,5 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <ColorSchemeScript />
-      </head>
-      <body>
-        <MantineProvider theme={theme} defaultColorScheme="dark">
-          <NavigationProgress />
-          <Structure>{children}</Structure>
-        </MantineProvider>
-      </body>
-    </html>
-  );
+  return <Structure>{children}</Structure>;
 }

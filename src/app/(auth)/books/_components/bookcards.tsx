@@ -25,7 +25,7 @@ export default function BookCardComponent({ book }: { book: Book }) {
       <Text size="sm" c="dimmed" lineClamp={4} style={{ minHeight: '80px' }}>
         {book.first_sentence && book.first_sentence.length > 0 ? book.first_sentence[0] : 'No Info Available'}
       </Text>
-      <Link href={`/book/${book.key}`} style={{ textDecoration: 'none' }}>
+      <Link href={`/books${book.key}`} style={{ textDecoration: 'none' }}>
         <Button fullWidth mt="md" radius="md">
           View
         </Button>

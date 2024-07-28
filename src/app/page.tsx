@@ -1,37 +1,37 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
-
-import { redirect } from 'next/navigation';
-import { auth, signIn } from '@src/auth';
+import { Title, Text, Container } from '@mantine/core';
+import classes from '@/styles/hero.module.css';
+import { Dots } from '@/components/ui/dots';
+import { GoogleIcon } from '@/components/icons/google';
+import { SignInButton } from '@/components/ui/login/signinbutton';
 
 export default function Home() {
   return (
-    <>
-      <main className="container max-w-2xl flex flex-col gap-8">
-        <h1 className="text-4xl font-extrabold my-8 text-center">Convex + Next.js + Auth.js</h1>
-        <p>Here is where your marketing message goes.</p>
-        <p>The user doesn&apos;t need to log in to see it.</p>
-        <p>To interact with the app log in via the button up top.</p>
-        <SignIn />
-      </main>
-    </>
-  );
-}
+    <Container className={classes.wrapper} size={1400}>
+      <Dots className={classes.dots} style={{ left: 0, top: 0 }} />
+      <Dots className={classes.dots} style={{ left: 60, top: 0 }} />
+      <Dots className={classes.dots} style={{ left: 0, top: 140 }} />
+      <Dots className={classes.dots} style={{ right: 0, top: 60 }} />
 
-export function SignIn() {
-  return (
-    <form
-      action={async () => {
-        'use server';
+      <div className={classes.inner}>
+        <Title className={classes.title}>
+          TrackEverything AI{' '}
+          <Text component="span" className={classes.highlight} inherit>
+            for any media
+          </Text>
+        </Title>
 
-        // Skip sign-in screen if the user is already signed in
-        if ((await auth()) !== null) {
-          redirect('/loggedin');
-        }
+        <Container p={0} size={600}>
+          <Text size="lg" c="dimmed" className={classes.description}>
+            TrackEverything is a platform for tracking everything. It is a platform for tracking everything.
+          </Text>
+        </Container>
 
-        await signIn('google', { redirectTo: '/loggedin' });
-      }}
-    >
-      <button type="submit">Sign in</button>
-    </form>
+        <div className={classes.controls}>
+          <SignInButton radius="xl" icon={<GoogleIcon />}>
+            Google
+          </SignInButton>
+        </div>
+      </div>
+    </Container>
   );
 }

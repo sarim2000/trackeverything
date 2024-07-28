@@ -21,7 +21,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         .setAudience('convex')
         .setExpirationTime('1h')
         .sign(privateKey);
-      return { ...session, convexToken };
+      return { ...session, convexToken, userId: session.userId };
     },
   },
 });

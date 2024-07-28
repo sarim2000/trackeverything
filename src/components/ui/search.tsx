@@ -2,15 +2,29 @@
 import { Box, Button, Flex, TextInput, rem } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 
 export default function Search() {
-  const [value, setvalue] = useState<string>('');
+  const [value, setValue] = useState<string>('');
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
+  const [isPending, startTransition] = useTransition();
 
   const icon = <IconSearch style={{ width: rem(16), height: rem(16) }} />;
+
+  const handleSearch = () => {
+    startTransition(() => {
+      const params = new URLSearchParams(searchParams);
+      if (value) {
+        params.set('title', value);
+      } else {
+        params.delete('title');
+      }
+      replace(`${pathname}?${params.toString()}`);
+    });
+  };
+
   return (
     <Flex gap="md" justify="center" align="center" direction="row" wrap="wrap">
       <TextInput
@@ -18,22 +32,12 @@ export default function Search() {
         leftSection={icon}
         placeholder="..."
         size="lg"
-        defaultValue={searchParams.get('title') || ''}
-        onChange={(e) => setvalue(e.currentTarget.value)}
+        value={value}
+        onChange={(e) => setValue(e.currentTarget.value)}
       />
       <Box>
-        <Button
-          onClick={async () => {
-            const params = new URLSearchParams(searchParams);
-            if (value) {
-              params.set('title', value);
-            } else {
-              params.delete('title');
-            }
-            replace(`${pathname}?${params.toString()}`);
-          }}
-        >
-          Search{' '}
+        <Button onClick={handleSearch} loading={isPending} loaderProps={{type: "dots"}}>
+          {isPending ? 'Searching...' : 'Search'}
         </Button>
       </Box>
     </Flex>

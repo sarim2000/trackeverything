@@ -12,6 +12,7 @@ http.route({
         issuer: process.env.CONVEX_SITE_URL,
         jwks_uri: process.env.CONVEX_SITE_URL + '/.well-known/jwks.json',
         authorization_endpoint: process.env.CONVEX_SITE_URL + '/oauth/authorize',
+        userinfo_endpoint: process.env.CONVEX_SITE_URL + '/oauth/userinfo',
       }),
       {
         status: 200,

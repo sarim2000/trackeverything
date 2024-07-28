@@ -36,6 +36,8 @@
   border-radius: var(--mantine-radius-sm);
   font-weight: 500;
 
+  
+
   @mixin hover {
     background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
     color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
@@ -44,7 +46,20 @@
       color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
     }
   }
+
+  &[data-active=true] {
+    color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-2));
+
+    .linkIcon {
+      color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-2));
+    }
+
+    @mixin hover {
+      background-color: transparent;
+    }
+  }
 }
+
 
 .linkIcon {
   margin-right: var(--mantine-spacing-sm);
