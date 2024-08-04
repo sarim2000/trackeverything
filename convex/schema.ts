@@ -64,6 +64,8 @@ export const bookSchema = {
   cover_img: v.string(),
   id: v.string(),
   userId: v.id('users'),
+  author_name: v.string(),
+  first_publish_year: v.string(),
 };
 
 export const commentSchema = {
@@ -73,10 +75,25 @@ export const commentSchema = {
   mediaType: v.string(),
 };
 
+export const ratingSchema = {
+  userId: v.id('users'),
+  mediaId: v.string(),
+  rating: v.number(),
+};
+
+export const aggregatedRatingSchema = {
+  mediaId: v.string(),
+  totalRatings: v.number(),
+  averageRating: v.number(),
+  totalUsers: v.number(),
+};
+
 export default defineSchema({
   ...authTables,
   books: defineTable(bookSchema),
   comments: defineTable(commentSchema),
+  ratings: defineTable(ratingSchema),
+  aggregatedRatings: defineTable(aggregatedRatingSchema),
   // your other tables
   // or pass `strictTableNameTypes: false`
   // in the second argument argument to `defineSchema`

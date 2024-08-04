@@ -1,5 +1,5 @@
 
-import BookCardComponent from '@/app/(auth)/books/_components/bookcards';
+import BookCardComponent from '@/components/books/bookcards';
 import Search from '@/components/ui/search';
 import type { Book, MyBook } from '@/lib/types';
 import { Box, Divider, Flex, Text } from '@mantine/core';
@@ -23,7 +23,7 @@ export default async function Page() {
             ) : (
               <Text size={"xl"}>No books found</Text>
             )} */}
-            <MediaLibrary type='books' />
+          <MediaLibrary type='books' />
           {/* <Divider my="md" /> */}
           <Flex gap={'lg'} wrap={'wrap'}>
             {/* {data.map((book: MyBook) => {

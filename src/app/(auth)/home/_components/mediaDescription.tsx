@@ -2,7 +2,9 @@
 
 import { Box, Flex, Text, Image, Loader, Rating } from '@mantine/core';
 import { api } from '@src/convex/_generated/api';
-import { useQuery } from 'convex/react';
+import { useMutation, useQuery } from 'convex/react';
+import { revalidatePath } from 'next/cache';
+import { useState } from 'react';
 
 interface MediaDescriptionProps {
   type: 'books';
@@ -14,13 +16,14 @@ const typeToQueryMap = {
 };
 
 export default function MediaDescription({ type, id }: MediaDescriptionProps) {
-  console.log('🚀 ~ MediaDescription ~ type:', type);
+  const ratingMutation = useMutation(api.mutations.ratings.insertRating);
+  const rating = useQuery(api.queires.ratings.getRatings, { id });
+  console.log("🚀 ~ MediaDescription ~ rating:", rating)
+
 
   const query = typeToQueryMap[type];
-  console.log(query);
   const data = useQuery(query, { id });
 
-  console.log(data);
 
   if (!data) {
     return (
@@ -29,6 +32,10 @@ export default function MediaDescription({ type, id }: MediaDescriptionProps) {
       </Flex>
     );
   }
+
+  const insertRating = async (rating: number) => {
+    await ratingMutation({ rating, mediaId: id });
+  };
 
   return (
     <Box>
@@ -65,9 +72,15 @@ export default function MediaDescription({ type, id }: MediaDescriptionProps) {
           <Text size="xl" lineClamp={2}>
             {data.title}
           </Text>
-          <Rating defaultValue={2} color="yellow" size="lg" />
-          <Text size="sm" color="dimmed">
-            {/* Add author or other relevant info here */}
+          <Rating 
+            color="yellow" 
+            size="lg" 
+            fractions={2} 
+            onChange={insertRating}
+            value={rating}
+          />
+          <Text size="sm" c="dimmed">
+            by {data.author_name}
           </Text>
           <Box mt="md">
             <Text lineClamp={5}>{data.description}</Text>

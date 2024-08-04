@@ -5,7 +5,6 @@ import { Badge, Box, Button, Card, Flex, Group, Image, Text } from '@mantine/cor
 import Link from 'next/link';
 
 export default function BookCardComponent({ book }: { book: Book }) {
-  console.log(book.first_sentence);
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder style={{ width: '300px' }} key={book.key}>
       <Card.Section>
@@ -21,6 +20,9 @@ export default function BookCardComponent({ book }: { book: Book }) {
           {book.title}
         </Text>
       </Group>
+      <Text c="blue" mb="xs">
+        by {book.author_name}
+      </Text>
 
       <Text size="sm" c="dimmed" lineClamp={4} style={{ minHeight: '80px' }}>
         {book.first_sentence && book.first_sentence.length > 0 ? book.first_sentence[0] : 'No Info Available'}

@@ -19,12 +19,16 @@ export default function BookMainComponent({
   title,
   cover_img,
   subjects,
+  author_name,
+  first_publish_year,
 }: {
   id: string;
   description: string;
   title: string;
   cover_img: string;
   subjects: string[];
+  author_name: string;
+  first_publish_year: string;
 }) {
   const [notification, setNotification] = useState<NotificationType | null>(null);
   const xIcon = <IconX style={{ width: rem(20), height: rem(20) }} />;
@@ -35,7 +39,7 @@ export default function BookMainComponent({
   const handleAddBook = async () => {
     setIsLoading(true);
     try {
-      await addBookMutation({ id, title, description, cover_img });
+      await addBookMutation({ id, title, description, cover_img, author_name, first_publish_year });
       setNotification({ type: 'success', message: 'Book added successfully!' });
     } catch (error) {
       
@@ -64,6 +68,7 @@ export default function BookMainComponent({
       <Box>
         <Title order={1}>{title}</Title>
       </Box>
+      <Text c="dimmed">by {author_name}</Text>
       <Container fluid>
         <Image fit="fill" src={cover_img} height={320} alt={title} />
       </Container>

@@ -1,6 +1,6 @@
 'use client';
 import { convexQuery } from '@convex-dev/react-query';
-import { Box, Button, Collapse, Divider, Flex, Loader, Text } from '@mantine/core';
+import { Box, Button, Collapse, Divider, Flex, Grid, Loader, Text } from '@mantine/core';
 import { api } from '@src/convex/_generated/api';
 import { id } from 'convex-helpers/validators';
 import { useQuery } from 'convex/react';
@@ -19,7 +19,7 @@ const typeToQueryMap = {
 export default function MediaLibrary({ type }: MediaLibraryProps) {
   const queryFunction = typeToQueryMap[type];
   const data = useQuery(queryFunction)
-  const [opened, { toggle }] = useDisclosure(false);
+  const [opened, { toggle }] = useDisclosure(true);
 
   if (!data) {
     return <Flex justify="center">
@@ -40,11 +40,13 @@ export default function MediaLibrary({ type }: MediaLibraryProps) {
       </Flex>
       <Divider my="md" />
       <Collapse in={opened}>
-        <Flex gap={'lg'} wrap={'wrap'}>
+        <Grid gutter="md">
           {data.map((book) => (
-          <HomeBookCardComponent key={book.id} book={book} />
+            <Grid.Col key={book.id} span={{ base: 12, sm: 6, md: 4 }}>
+              <HomeBookCardComponent book={book} />
+            </Grid.Col>
           ))}
-        </Flex>
+        </Grid>
       </Collapse>
     </Box>
   );

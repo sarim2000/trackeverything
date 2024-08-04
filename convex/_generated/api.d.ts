@@ -18,7 +18,10 @@ import type * as authAdapter from "../authAdapter.js";
 import type * as http from "../http.js";
 import type * as mutations_books from "../mutations/books.js";
 import type * as mutations_comments from "../mutations/comments.js";
+import type * as mutations_ratings from "../mutations/ratings.js";
 import type * as queires_books from "../queires/books.js";
+import type * as queires_comments from "../queires/comments.js";
+import type * as queires_ratings from "../queires/ratings.js";
 import type * as utils from "../utils.js";
 
 /**
@@ -34,7 +37,10 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   "mutations/books": typeof mutations_books;
   "mutations/comments": typeof mutations_comments;
+  "mutations/ratings": typeof mutations_ratings;
   "queires/books": typeof queires_books;
+  "queires/comments": typeof queires_comments;
+  "queires/ratings": typeof queires_ratings;
   utils: typeof utils;
 }>;
 export declare const api: FilterApi<

@@ -1,4 +1,4 @@
-import BookCardComponent from '@/app/(auth)/books/_components/bookcards';
+import BookCardComponent from '@/components/books/bookcards';
 import type { Book } from '@/lib/types';
 import { Flex, Text } from '@mantine/core';
 import getBooks from './actions';
@@ -6,6 +6,7 @@ import getBooks from './actions';
 export default async function BookLayout({ query }: { query: string }) {
   const books = (await getBooks(query)) as Book[];
   // const books = [] as Book[]
+
 
   if (books.length === 0) {
     return (
