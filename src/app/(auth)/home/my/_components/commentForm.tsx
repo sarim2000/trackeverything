@@ -30,7 +30,7 @@ export default function CommentForm({ id, type }: { id: string; type: string }) 
       formRef.current?.reset();
     } catch (error) {
       setNotification({
-        type: 'exrror',
+        type: 'error',
         message: 'Failed to post your comment. We will soon give you a edit feature. Please try again.',
       });
     } finally {
