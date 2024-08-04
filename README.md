@@ -2,12 +2,7 @@
 
 ## TODO (follow one by one)
 
-- [ ] Shift to drizzle and supabase
-
-- [x] complete auth
-- [x] set up database for users\
-- [x] set up database for books
-- [ ] complete mybooks page that let user remove it, give rating, number of users that read it
+- [ ] Finish comment and rating feature
 
 Update:
 

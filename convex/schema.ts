@@ -66,9 +66,17 @@ export const bookSchema = {
   userId: v.id('users'),
 };
 
+export const commentSchema = {
+  content: v.string(),
+  userId: v.id('users'),
+  mediaId: v.string(),
+  mediaType: v.string(),
+};
+
 export default defineSchema({
   ...authTables,
   books: defineTable(bookSchema),
+  comments: defineTable(commentSchema),
   // your other tables
   // or pass `strictTableNameTypes: false`
   // in the second argument argument to `defineSchema`

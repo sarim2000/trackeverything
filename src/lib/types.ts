@@ -8,9 +8,8 @@ export type Book = {
   first_sentence: string[];
 };
 export type MyBook = {
-  key: string;
-  $id: string;
-  cover_i: string;
   title: string;
-  first_sentence: string[];
+  description: string;
+  cover_img: string;
+  id: string;
 };

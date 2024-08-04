@@ -1,10 +1,11 @@
+
 import BookCardComponent from '@/app/(auth)/books/_components/bookcards';
 import Search from '@/components/ui/search';
 import type { Book, MyBook } from '@/lib/types';
 import { Box, Divider, Flex, Text } from '@mantine/core';
 import HomeBookCardComponent from './_components/homeBookCardComponent';
+import MediaLibrary from './_components/mediaLibrary';
 
-export const dynamic = 'force-dynamic';
 
 export default async function Page() {
   return (
@@ -22,7 +23,8 @@ export default async function Page() {
             ) : (
               <Text size={"xl"}>No books found</Text>
             )} */}
-          <Divider my="md" />
+            <MediaLibrary type='books' />
+          {/* <Divider my="md" /> */}
           <Flex gap={'lg'} wrap={'wrap'}>
             {/* {data.map((book: MyBook) => {
               return <HomeBookCardComponent key={book.key} book={book} />;

@@ -1,7 +1,7 @@
 import Search from '@/components/ui/search';
 import { Box, Flex } from '@mantine/core';
 import { Suspense } from 'react';
-import Loading from './loading';
+import Loading from '../loading';
 import BookLayout from './main';
 
 export default async function Page({
@@ -23,9 +23,7 @@ export default async function Page({
         <Flex direction={'column'} gap={'md'} align={'center'}>
           <Flex gap="md" justify="center" align="center" direction="column" wrap="wrap">
             <Search />
-            <Suspense key={query} fallback={<Loading />}>
-              <BookLayout query={query} />
-            </Suspense>
+            <BookLayout query={query} />
           </Flex>
         </Flex>
       </Flex>

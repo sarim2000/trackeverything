@@ -17,6 +17,9 @@ import type {
 import type * as authAdapter from "../authAdapter.js";
 import type * as http from "../http.js";
 import type * as mutations_books from "../mutations/books.js";
+import type * as mutations_comments from "../mutations/comments.js";
+import type * as queires_books from "../queires/books.js";
+import type * as utils from "../utils.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -30,6 +33,9 @@ declare const fullApi: ApiFromModules<{
   authAdapter: typeof authAdapter;
   http: typeof http;
   "mutations/books": typeof mutations_books;
+  "mutations/comments": typeof mutations_comments;
+  "queires/books": typeof queires_books;
+  utils: typeof utils;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,
