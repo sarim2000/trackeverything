@@ -34,4 +34,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
 });
 
-// ... rest of the file remains unchanged
+declare module 'next-auth' {
+  interface Session {
+    convexToken: string;
+  }
+}
