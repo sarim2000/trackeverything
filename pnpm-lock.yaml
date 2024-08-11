@@ -50,9 +50,6 @@ importers:
       ai:
         specifier: ^3.3.5
         version: 3.3.5(react@18.3.1)(sswr@2.1.0(svelte@4.2.18))(svelte@4.2.18)(vue@3.4.37(typescript@5.5.4))(zod@3.23.8)
-      baml:
-        specifier: ^0.0.0
-        version: 0.0.0
       convex:
         specifier: ^1.13.2
         version: 1.13.2(@auth0/auth0-react@2.2.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(eslint@9.8.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -876,9 +873,6 @@ packages:
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
-
-  baml@0.0.0:
-    resolution: {integrity: sha512-wlrNMVNrHKoB65HXhjTD8mFLWQZVaapWl35gHB+wrp4Sx1+zm5U32LJ2cgYV+1/UPBVC198E5PXJdwYNf2JFKg==}
 
   brace-expansion@1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
@@ -3093,8 +3087,6 @@ snapshots:
   axobject-query@4.1.0: {}
 
   balanced-match@1.0.2: {}
-
-  baml@0.0.0: {}
 
   brace-expansion@1.1.11:
     dependencies:
