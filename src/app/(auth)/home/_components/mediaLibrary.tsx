@@ -45,11 +45,15 @@ export default function MediaLibrary({ type }: MediaLibraryProps) {
       <Divider mb={'xs'} />
       <Collapse in={opened}>
         <Grid gutter="md">
-          {data.map((book) => (
-            <Grid.Col key={book.id} span={{ base: 12, sm: 6, md: 4 }}>
-              <HomeBookCardComponent book={book} />
-            </Grid.Col>
-          ))}
+          {data.length === 0 ? (
+            <Text>No books found</Text>
+          ) : (
+            data.map((book) => (
+              <Grid.Col key={book.id} span={{ base: 12, sm: 6, md: 4 }}>
+                <HomeBookCardComponent book={book} />
+              </Grid.Col>
+            ))
+          )}
         </Grid>
       </Collapse>
     </Box>

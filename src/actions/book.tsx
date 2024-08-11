@@ -29,7 +29,7 @@ export async function getAISuggestionsUserProfile(user_profile: UserProfile) {
   if (currentCount === null) {
     // First request of the day
     await redis.set(rateKey, '1', { ex: 86400 }); // 24 hours in seconds
-  } else if (parseInt(currentCount) >= 3) {
+  } else if (parseInt(currentCount) >= 10) {
     throw new Error("Rate limit exceeded. Try again tomorrow.");
   } else {
     await redis.incr(rateKey);
@@ -51,6 +51,7 @@ export async function getAISuggestionsUserProfile(user_profile: UserProfile) {
 
 
     bookSuggestionsStream.done();
+
   })();
 
 
@@ -75,7 +76,7 @@ export async function getAISuggestionsMood({mood, media_type}: {mood: string, me
   if (currentCount === null) {
     // First request of the day
     await redis.set(rateKey, '1', { ex: 86400 }); // 24 hours in seconds
-  } else if (parseInt(currentCount) >= 3) {
+  } else if (parseInt(currentCount) >= 10) {
     throw new Error('Rate limit exceeded. Try again tomorrow.');
   } else {
     await redis.incr(rateKey);

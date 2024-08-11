@@ -44,7 +44,7 @@ export default function MoodBasedRecommendations() {
       console.error('Error extracting mood based book suggestions', e);
       notifications.show({
         title: 'Error',
-        message: e.message,
+        message: 'Reached the limit of 10 recommendations. Please wait for the next day.',
         color: 'red',
         autoClose: 1800,
       });
