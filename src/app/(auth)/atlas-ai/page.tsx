@@ -13,26 +13,41 @@ import {
   Image,
   Modal,
   Select,
+  SemiCircleProgress,
   SimpleGrid,
   Stack,
   Tabs,
   Text,
   Title,
+  
 } from '@mantine/core';
 import { useCallback, useState } from 'react';
+
 
 import PersonalizedRecommendations from './personalized';
 import MoodBasedRecommendations from './mood';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconHammer } from '@tabler/icons-react';
 import ExploreRecommendations from './explore';
+import { useQuery } from '@tanstack/react-query';
+import { getAtlasLimit } from '@/actions/redis';
 
 export default function Page() {
   const [aiSuggestions, setAiSuggestions] = useState<AISuggestions[] | undefined>(undefined);
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 1024px)');
   const [challengeModalOpen, setChallengeModalOpen] = useState(false);
   const [gemModalOpen, setGemModalOpen] = useState(false);
   const [gemRevealed, setGemRevealed] = useState(false);
+  const { data: atlasLimit, isFetched } = useQuery({
+    queryKey: ['atlasLimit'],
+    queryFn: async() => {
+      const limit = await getAtlasLimit();
+      if (!limit) {
+        throw new Error('Atlas limit not found');
+      }
+      return limit * 10;
+    },
+  });
 
   const handleViewChallenge = () => {
     setChallengeModalOpen(true);
@@ -49,7 +64,7 @@ export default function Page() {
       </Box>
 
       <Grid gutter={isMobile ? 'xs' : 'md'}>
-        <Grid.Col span={isMobile ? 12 : 8}>
+        <Grid.Col order={isMobile ? 2 : 1} span={isMobile ? 12 : 8}>
           <Card>
             <Tabs defaultValue="forYou">
               <Tabs.List grow={isMobile}>
@@ -73,8 +88,26 @@ export default function Page() {
           </Card>
         </Grid.Col>
 
-        <Grid.Col span={isMobile ? 12 : 4}>
-          <SimpleGrid cols={isMobile ? 2 : 1} spacing={isMobile ? 'xs' : 'md'}>
+        <Grid.Col order={isMobile ? 1 : 2} span={isMobile ? 12 : 4}>
+          <SimpleGrid cols={1} spacing={isMobile ? 'xs' : 'md'}>
+            <Card>
+              <Title order={4} mb="xs">
+                Daily A.T.L.A.S Limit
+              </Title>
+              <Text size="sm" c="dimmed" mb="md">
+                You're {atlasLimit ? atlasLimit : 0}% through your daily A.T.L.A.S recommendations. Keep going!
+              </Text>
+              {isFetched && (
+                <Flex direction="column" gap="xs" align="center">
+                  <SemiCircleProgress
+                    value={atlasLimit ? atlasLimit : 0}
+                    transitionDuration={250}
+                    label={`${atlasLimit}%`}
+                    labelPosition="center"
+                  />
+                </Flex>
+              )}
+            </Card>
             <Card>
               <Title order={4}>Daily Challenge</Title>
               <Text size={isMobile ? 'sm' : 'md'}>Step out of your comfort zone with this daily book challenge.</Text>

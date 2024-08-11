@@ -15,9 +15,10 @@ class AISuggestions {
 }
 
 function SuggestBooks(user_profile: UserProfile) -> AISuggestions[] {
-  client GPT3
+  client Groq
   prompt #"
-    {{ ctx.output_format(prefix="Generate book suggestions for the following user profile:") }}
+    {{ ctx.output_format }}
+    Generate book suggestions for the following user profile:
     {{ user_profile }}
   "#
 }

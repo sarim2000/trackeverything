@@ -12,20 +12,30 @@ import { readStreamableValue } from 'ai/rsc';
 import { SuggestionCard } from './_components/Card';
 import BookSuggestionDisplay from './_components/BookSuggestionsDisplay';
 import { notifications } from '@mantine/notifications';
-
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function PersonalizedRecommendations() {
+  const queryClient = useQueryClient();
+
   const mutateAiSuggestedBooks = useMutation(api.mutations.aiSuggestedBook.addAiSuggestedBooks);
   const data = useQuery(api.queires.profile.getUserProfile);
 
   const [aiSuggestionsState, setAiSuggestionsState] = useState<AISuggestions[] | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
 
-
   const handleSuggestBooks = async () => {
     setIsLoading(true);
     let aiSuggestions: AISuggestions[] = [];
     try {
+      if (!data) {
+        notifications.show({
+          title: 'Error',
+          message: 'Fill out your profile first to get personalized recommendations',
+          color: 'red',
+          autoClose: 1800,
+        });
+        return;
+      }
       const { object } = await getAISuggestionsUserProfile({
         age_range: data?.ageRange || '',
         bio: data?.bio || '',
@@ -46,10 +56,10 @@ export default function PersonalizedRecommendations() {
         message: e.message,
         color: 'red',
         autoClose: 1800,
-      })
+      });
     } finally {
       setIsLoading(false);
-      
+
       if (aiSuggestions.length > 0) {
         // notifications.show({
         //   title: 'Success',
@@ -58,6 +68,7 @@ export default function PersonalizedRecommendations() {
         //   autoClose: 1800,
         // });
         await mutateAiSuggestedBooks({ books: aiSuggestions, typeOfSuggestion: 'personalized' });
+        queryClient.invalidateQueries({ queryKey: ['atlasLimit'] });
       }
     }
   };

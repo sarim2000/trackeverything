@@ -6,3 +6,12 @@ client<llm> GPT3 {
     api_key env.OPENAI_API_KEY
   }
 }   
+
+client<llm> Groq {
+  provider openai
+  options {
+    base_url "https://api.groq.com/openai/v1"
+    api_key env.GROQ_API_KEY
+    model "llama3-8b-8192"
+  }
+}

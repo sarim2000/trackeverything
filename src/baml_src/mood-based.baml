@@ -4,9 +4,10 @@ class MoodBased {
 }
 
 function GetMoodBasedSuggestions(mood: MoodBased) -> AISuggestions[] {
-  client GPT3
+  client Groq
   prompt #"
-    {{ ctx.output_format(prefix="Generate book suggestions for the following user profile:") }}
+    {{ ctx.output_format }}
+    Generate book suggestions for the following user profile:
     {{ mood }}
   "#
 }
