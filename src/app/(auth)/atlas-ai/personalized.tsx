@@ -3,75 +3,85 @@ import { Badge, Button, Card, Flex, SimpleGrid, Stack, Text } from '@mantine/cor
 import { api } from '@src/convex/_generated/api';
 import { getAiSuggestedBooks } from '@src/convex/queires/aiSuggestedBook';
 import { useMutation, useQuery } from 'convex/react';
-import { b, BookSuggestions } from '@/baml_client';
+import { b, AISuggestions } from '@/baml_client';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import LoadingUI from '@/components/ui/loading-ui';
+import { getAISuggestionsUserProfile } from '@/actions/book';
+import { readStreamableValue } from 'ai/rsc';
+import { SuggestionCard } from './_components/Card';
+import BookSuggestionDisplay from './_components/BookSuggestionsDisplay';
+import { notifications } from '@mantine/notifications';
 
-const BookSuggestionCard = ({ bookSuggestion }: { bookSuggestion: BookSuggestions[] }) => {
-  return (
-    <>
-      <Flex direction="column" gap="md" mt="lg">
-        <Text size="lg" fw={500}>
-          {bookSuggestion.length} books found
-        </Text>
-        <SimpleGrid
-          cols={{
-            base: 1,
-            md: 2,
-            lg: 3,
-          }}
-          spacing="lg"
-        >
-          {bookSuggestion.map((book) => (
-            <Card key={book.title} shadow="md" padding="lg" radius="md" withBorder style={{ height: '100%' }}>
-              <Stack mt="md" gap="xs" style={{ flexGrow: 1 }}>
-                <Text fw={700} lineClamp={2}>
-                  {book.title}
-                </Text>
-                <Badge color="pink" variant="light" size="sm">
-                  {book.author}
-                </Badge>
-                <Text size="sm" c="dimmed" mt="sm" lineClamp={3}>
-                  {book.description}
-                </Text>
-                <Text size="md" color="blue" mt="xs">
-                  Reason: {book.reason}
-                </Text>
-              </Stack>
-              <Button
-                component={Link}
-                href={`/books?title=${encodeURIComponent(book?.title || '')}`}
-                variant="light"
-                color="blue"
-                fullWidth
-                mt="md"
-                radius="md"
-              >
-                Search
-              </Button>
-            </Card>
-          ))}
-        </SimpleGrid>
-      </Flex>
-    </>
-  );
-};
 
-export default function Personalized({ bookSuggestions }: { bookSuggestions: BookSuggestions[] | undefined }) {
-  const getAiSuggestedBooks = useQuery(api.queires.aiSuggestedBook.getAiSuggestedBooks);
+export default function PersonalizedRecommendations() {
+  const mutateAiSuggestedBooks = useMutation(api.mutations.aiSuggestedBook.addAiSuggestedBooks);
+  const data = useQuery(api.queires.profile.getUserProfile);
 
-  if (getAiSuggestedBooks === undefined) {
-    return <LoadingUI />;
-  }
+  const [aiSuggestionsState, setAiSuggestionsState] = useState<AISuggestions[] | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState(false);
 
-  if (bookSuggestions && bookSuggestions.length > 0) {
-    return <BookSuggestionCard bookSuggestion={bookSuggestions} />;
-  }
+
+  const handleSuggestBooks = async () => {
+    setIsLoading(true);
+    let aiSuggestions: AISuggestions[] = [];
+    try {
+      const { object } = await getAISuggestionsUserProfile({
+        age_range: data?.ageRange || '',
+        bio: data?.bio || '',
+        favorite_genre: data?.favoriteGenres || [],
+        preferred_media: data?.preferredMediaTypes || [],
+        language: data?.languagePreferences.join(', ') || '',
+      });
+      for await (const partialObject of readStreamableValue(object)) {
+        setAiSuggestionsState(partialObject);
+        if (partialObject) {
+          aiSuggestions = partialObject;
+          // await mutateAiSuggestedBooks({ books: partialObject });
+        }
+      }
+    } catch (e: any) {
+      notifications.show({
+        title: 'Error',
+        message: e.message,
+        color: 'red',
+        autoClose: 1800,
+      })
+    } finally {
+      setIsLoading(false);
+      
+      if (aiSuggestions.length > 0) {
+        // notifications.show({
+        //   title: 'Success',
+        //   message: 'Book suggestions extracted successfully',
+        //   color: 'green',
+        //   autoClose: 1800,
+        // });
+        await mutateAiSuggestedBooks({ books: aiSuggestions, typeOfSuggestion: 'personalized' });
+      }
+    }
+  };
 
   return (
     <>
-      {getAiSuggestedBooks?.books && <BookSuggestionCard bookSuggestion={getAiSuggestedBooks?.books} />}
+      <Text size="lg" mt="md">
+        Personalized Picks
+      </Text>
+      <Text size="sm" c="dimmed">
+        Discover personalized recommendations tailored to your preferences across various media types.
+      </Text>
+      <Button
+        onClick={handleSuggestBooks}
+        variant="gradient"
+        gradient={{ from: 'indigo', to: 'cyan' }}
+        radius="md"
+        size="md"
+        mt="md"
+        disabled={isLoading || data === undefined}
+      >
+        {isLoading ? 'Thinking...' : 'Suggest Books'}
+      </Button>
+      <BookSuggestionDisplay bookSuggestions={aiSuggestionsState} typeOfSuggestion="personalized" />
     </>
   );
 }

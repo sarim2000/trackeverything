@@ -18,7 +18,7 @@ const data = [
   { link: '', label: 'Games', icon: IconDeviceGamepad },
 ];
 
-export function Sidebar({ toggle }: { toggle: () => void }) {
+export function Sidebar() {
   const pathname = usePathname();
   const [active, setActive] = useState(pathname);
   console.log("🚀 ~ Sidebar ~ active:", active)
@@ -31,9 +31,6 @@ export function Sidebar({ toggle }: { toggle: () => void }) {
       data-active={pathname === item.link}
       href={item.link}
       key={item.label}
-      onClick={(event) => {
-        toggle();
-      }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
       <span>{item.label}</span>

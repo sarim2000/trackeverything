@@ -13,11 +13,7 @@ export default function Structure({ children }: { children: React.ReactNode }) {
       header={{
         height: { base: 60, md: 60, lg: 60 },
       }}
-      navbar={{
-        width: { base: 200, md: 300, lg: 300 },
-        breakpoint: 'md',
-        collapsed: { mobile: !opened },
-      }}
+      navbar={{ width: 300, breakpoint: 'sm', collapsed: { mobile: !opened } }}
       padding="md"
     >
       <AppShell.Header>
@@ -28,7 +24,7 @@ export default function Structure({ children }: { children: React.ReactNode }) {
         </Group>
       </AppShell.Header>
       <AppShell.Navbar>
-        <Sidebar toggle={toggle} />
+        <Sidebar />
       </AppShell.Navbar>
       <AppShell.Main>{children}</AppShell.Main>
     </AppShell>

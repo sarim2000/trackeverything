@@ -107,6 +107,7 @@ export const bookSuggestionSchema = {
 export const aiSuggestedBooksSchema = {
   books: v.array(v.object(bookSuggestionSchema)),
   userId: v.id('users'),
+  typeOfSuggestion: v.optional(v.string()),
 };
 
 

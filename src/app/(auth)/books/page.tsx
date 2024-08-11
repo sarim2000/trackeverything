@@ -1,7 +1,7 @@
 import Search from '@/components/ui/search';
 import { Box, Flex } from '@mantine/core';
 import { Suspense } from 'react';
-import Loading from '../loading';
+import Loading from './loading';
 import BookLayout from './main';
 
 export default async function Page({

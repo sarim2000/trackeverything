@@ -1,6 +1,5 @@
 'use client';
 
-import { suggestBooks } from '@/actions/book';
 import { AISuggestions } from '@/baml_client';
 import LoadingUI from '@/components/ui/loading-ui';
 import {
@@ -12,6 +11,7 @@ import {
   Grid,
   Group,
   Image,
+  Modal,
   Select,
   SimpleGrid,
   Stack,
@@ -19,111 +19,126 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { api } from '@src/convex/_generated/api';
-import { readStreamableValue } from 'ai/rsc';
-import { useMutation, useQuery } from 'convex/react';
-import Link from 'next/link';
 import { useCallback, useState } from 'react';
-import Personalized from './personalized';
+
+import PersonalizedRecommendations from './personalized';
+import MoodBasedRecommendations from './mood';
+import { useMediaQuery } from '@mantine/hooks';
+import { IconHammer } from '@tabler/icons-react';
+import ExploreRecommendations from './explore';
 
 export default function Page() {
-  const data = useQuery(api.queires.profile.getUserProfile);
-  const mutateAiSuggestedBooks = useMutation(api.mutations.aiSuggestedBook.addAiSuggestedBooks);
-
   const [aiSuggestions, setAiSuggestions] = useState<AISuggestions[] | undefined>(undefined);
-  const [isLoading, setIsLoading] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const [challengeModalOpen, setChallengeModalOpen] = useState(false);
+  const [gemModalOpen, setGemModalOpen] = useState(false);
+  const [gemRevealed, setGemRevealed] = useState(false);
 
-  const handleSuggestBooks = async () => {
-    setIsLoading(true);
-    let aiSuggestions: AISuggestions[] = [];
-    try {
-      const { object } = await suggestBooks({
-        age_range: data?.ageRange || '',
-        bio: data?.bio || '',
-        favorite_genre: data?.favoriteGenres || [],
-        preferred_media: data?.preferredMediaTypes || [],
-        language: data?.languagePreferences.join(', ') || '',
-      });
-      for await (const partialObject of readStreamableValue(object)) {
-        setAiSuggestions(partialObject);
-        if (partialObject) {
-          aiSuggestions = partialObject;
-          // await mutateAiSuggestedBooks({ books: partialObject });
-        }
-      }
-    } catch (e) {
-      console.error('Error extracting book suggestions', e);
-    } finally {
-      setIsLoading(false);
-      if (aiSuggestions.length > 0) {
-        await mutateAiSuggestedBooks({ books: aiSuggestions });
-      }
-    }
+  const handleViewChallenge = () => {
+    setChallengeModalOpen(true);
+    // Here you would fetch the daily challenge from your backend
   };
-
-
 
   return (
     <Flex direction="column" gap="md">
       <Box mb="md">
         <Title order={2}>A.T.L.A.S AI Recommendations</Title>
-        <Text size="sm" color="dimmed">
+        <Text size="sm" c="dimmed">
           Adaptive Taste Learning and Suggestion System
         </Text>
-        <Text mt="xs">
-          Discover personalized recommendations tailored to your unique preferences across various media types.
-        </Text>
       </Box>
-      <Tabs defaultValue="personalized">
-        <Tabs.List>
-          <Tabs.Tab value="personalized">Personalized Picks</Tabs.Tab>
-          <Tabs.Tab value="moodBased">Mood-based</Tabs.Tab>
-          <Tabs.Tab value="challenge">Media Challenge</Tabs.Tab>
-          <Tabs.Tab value="discovery">Discovery</Tabs.Tab>
-          <Tabs.Tab value="similar">Similar Media</Tabs.Tab>
-          <Tabs.Tab value="crossMedia">Cross-Media</Tabs.Tab>
-          <Tabs.Tab value="hiddenGems">Hidden Gems</Tabs.Tab>
-        </Tabs.List>
 
-        <Tabs.Panel value="personalized">
-          <Text size="lg" mt="md">
-            Personalized Picks
-          </Text>
-          <Text size="sm" c="dimmed">
-            Discover personalized recommendations tailored to your preferences across various media types.
-          </Text>
-          <Button
-            onClick={handleSuggestBooks}
-            variant="gradient"
-            gradient={{ from: 'indigo', to: 'cyan' }}
-            radius="xl"
-            size="md"
-            mt="md"
-            disabled={isLoading || data === undefined}
-          >
-            {isLoading ? 'Thinking...' : 'Suggest Books'}
+      <Grid gutter={isMobile ? 'xs' : 'md'}>
+        <Grid.Col span={isMobile ? 12 : 8}>
+          <Card>
+            <Tabs defaultValue="forYou">
+              <Tabs.List grow={isMobile}>
+                <Tabs.Tab value="forYou">For You</Tabs.Tab>
+                <Tabs.Tab value="explore">Explore</Tabs.Tab>
+                <Tabs.Tab value="moodBased">Mood</Tabs.Tab>
+              </Tabs.List>
+
+              <Tabs.Panel value="forYou">
+                <PersonalizedRecommendations />
+              </Tabs.Panel>
+
+              <Tabs.Panel value="explore">
+                <ExploreRecommendations />
+              </Tabs.Panel>
+
+              <Tabs.Panel value="moodBased">
+                <MoodBasedRecommendations />
+              </Tabs.Panel>
+            </Tabs>
+          </Card>
+        </Grid.Col>
+
+        <Grid.Col span={isMobile ? 12 : 4}>
+          <SimpleGrid cols={isMobile ? 2 : 1} spacing={isMobile ? 'xs' : 'md'}>
+            <Card>
+              <Title order={4}>Daily Challenge</Title>
+              <Text size={isMobile ? 'sm' : 'md'}>Step out of your comfort zone with this daily book challenge.</Text>
+              <Button mt="sm" fullWidth={isMobile} onClick={handleViewChallenge}>
+                View Challenge
+              </Button>
+            </Card>
+
+            <Card>
+              <Title order={4}>Hidden Gem</Title>
+              <Text size={isMobile ? 'sm' : 'md'}>Discover an underappreciated book that matches your tastes.</Text>
+              <Button mt="sm" fullWidth={isMobile} onClick={() => setGemModalOpen(true)}>
+                Reveal Gem
+              </Button>
+            </Card>
+          </SimpleGrid>
+        </Grid.Col>
+      </Grid>
+
+      <Modal opened={challengeModalOpen} onClose={() => setChallengeModalOpen(false)} title="Daily Reading Challenge">
+        <Image src="/path-to-book-cover.jpg" alt="Book Cover" width={200} mx="auto" />
+        <Title order={3} mt="md">
+          Challenge: Read "Book Title" by Author Name
+        </Title>
+        <Text mt="sm">This book is outside your usual genres. It's a thrilling mystery set in Victorian London.</Text>
+        <Text mt="sm">
+          Why this challenge? Expanding your reading horizons can introduce you to new perspectives and writing styles.
+        </Text>
+        <Group mt="lg">
+          <Button variant="outline" onClick={() => setChallengeModalOpen(false)}>
+            Maybe Later
           </Button>
-          <Personalized bookSuggestions={aiSuggestions} />
-        </Tabs.Panel>
+          <Button
+            onClick={() => {
+              /* Logic to accept challenge */
+            }}
+          >
+            Accept Challenge
+          </Button>
+        </Group>
+      </Modal>
 
-        <Tabs.Panel value="moodBased">
-          <Text size="lg" mt="md">
-            Mood-based
-          </Text>
-          <Text size="sm" c="dimmed">
-            Discover personalized recommendations tailored to your mood across various media types.
-          </Text>
-
-          <Box>
-            <Select label="Tell me about your mood" placeholder="Pick value" data={['happy', 'sad', 'neutral']} />
-            <Button variant="gradient" gradient={{ from: 'indigo', to: 'cyan' }} radius="xl" size="md" mt="md">
-              Generate Book Recommendations
+      <Modal opened={gemModalOpen} onClose={() => setGemModalOpen(false)} title="Hidden Gem">
+        {gemRevealed ? (
+          <>
+            <Image src="/path-to-book-cover.jpg" alt="Book Cover" width={200} mx="auto" />
+            <Title order={3} mt="md">
+              Hidden Gem: "Book Title" by Author Name
+            </Title>
+            <Text mt="sm">
+              This book is a lesser-known gem in your favorite genre. It has received high praise from critics and
+              readers alike.
+            </Text>
+            <Button mt="lg" onClick={() => setGemModalOpen(false)}>
+              Close
             </Button>
-          </Box>
-        </Tabs.Panel>
-
-        {/* Add other Tabs.Panel components for each tab */}
-      </Tabs>
+          </>
+        ) : (
+          <>
+            <LoadingUI />
+            <Text mt="sm">Revealing your hidden gem...</Text>
+          </>
+        )}
+      </Modal>
     </Flex>
   );
 }
