@@ -2,7 +2,7 @@ import { Title, Text, Container } from '@mantine/core';
 import classes from '@/styles/hero.module.css';
 import { GoogleIcon } from '@/components/icons/google';
 import { SignInButton } from '@/components/ui/login/signinbutton';
-import { Dots } from '@/components/ui/dots';
+import { Dots } from '@/components/ui/Dots1';
 
 export default function Home() {
   return (
