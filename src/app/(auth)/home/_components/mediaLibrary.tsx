@@ -18,27 +18,31 @@ const typeToQueryMap = {
 
 export default function MediaLibrary({ type }: MediaLibraryProps) {
   const queryFunction = typeToQueryMap[type];
-  const data = useQuery(queryFunction)
+  const data = useQuery(queryFunction);
+  console.log(data);
+
   const [opened, { toggle }] = useDisclosure(true);
 
   if (!data) {
-    return <Flex justify="center">
-      <Loader type="dots" />
-    </Flex>;
+    return (
+      <Flex justify="center">
+        <Loader type="dots" />
+      </Flex>
+    );
   }
-  
 
   return (
     <Box>
       <Flex justify="space-between">
-        <Text size="xl">
-          {type}
-        </Text>
-        <Button onClick={toggle} variant='transparent'>
-          <DropdownArrow direction={opened ? 'up' : 'down'}/>
+        <Flex>
+          <Text size="xl">{type}</Text>
+          <Button variant="transparent">Get ATLAS recommendations</Button>
+        </Flex>
+        <Button onClick={toggle} variant="transparent">
+          <DropdownArrow direction={opened ? 'up' : 'down'} />
         </Button>
       </Flex>
-      <Divider my="md" />
+      <Divider mb={'xs'} />
       <Collapse in={opened}>
         <Grid gutter="md">
           {data.map((book) => (

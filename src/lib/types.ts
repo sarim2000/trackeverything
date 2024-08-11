@@ -8,6 +8,14 @@ export type Book = {
   first_sentence: string[];
 };
 
+export type Rating = {
+  mediaId: string,
+  rating: number,
+  userId: string,
+  _creationTime: number,
+  _id: string,
+}
+
 
 
 export type MyBook = {
@@ -18,4 +26,5 @@ export type MyBook = {
   userId: string,
   author_name: string,
   first_publish_year: string,
+  rating: Rating | null,
 };

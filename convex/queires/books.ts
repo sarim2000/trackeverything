@@ -8,7 +8,15 @@ export const getBooks = query({
     handler: async (ctx) => {
         const userId = await getUserId(ctx);
         const books = await ctx.db.query('books').filter(q => q.eq(q.field('userId'), userId)).collect();
-        return books;
+
+        const booksWithRatings = await Promise.all(books.map(async (book) => {
+            const rating = await ctx.db.query('ratings').filter(q => q.eq(q.field('mediaId'), book.id)).unique()
+            console.log("🚀 ~ booksWithRatings ~ rating:", rating)
+            
+            return {...book, rating}
+        }))
+
+        return booksWithRatings;
     }
 })
 

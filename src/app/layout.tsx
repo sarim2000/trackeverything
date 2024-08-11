@@ -1,9 +1,10 @@
 import { theme } from '@/lib/theme';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
-import '@mantine/core/styles.css';
-import '@mantine/nprogress/styles.css';
+import '@/styles/global.css';
 import { auth } from '@/auth';
 import ConvexClientProvider from '@/lib/context/ConvexClientProvider';
+import { Notifications } from '@mantine/notifications';
+
 
 export const metadata = {
   title: 'TrackEverything',
@@ -22,6 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <MantineProvider theme={theme} defaultColorScheme="dark">
             {/* <NavigationProgress size={24}/> */}
             {children}
+            <Notifications />
           </MantineProvider>
         </ConvexClientProvider>
       </body>

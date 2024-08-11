@@ -8,12 +8,22 @@ export const insertRating = mutation({
   handler: async (ctx, args) => {
     const userId = await getUserId(ctx);
 
-    
-    await ctx.db.insert('ratings', {
-      rating: args.rating,
-      mediaId: args.mediaId,
-      userId: userId,
-    });
+    const existingRating = await ctx.db.query('ratings').filter(q => q.and(q.eq(q.field('mediaId'), args.mediaId), q.eq(q.field('userId'), userId))).unique()
+
+    if (existingRating) {
+      await ctx.db.patch(existingRating._id, {
+        rating: args.rating,
+      })
+
+    }
+
+    else {
+      await ctx.db.insert('ratings', {
+        rating: args.rating,
+        mediaId: args.mediaId,
+        userId: userId,
+      });
+    }
   },
 });
 

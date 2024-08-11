@@ -1,5 +1,5 @@
 'use client';
-import { IconBooks, IconDeviceGamepad, IconHome, IconLogout, IconMovie, IconSettings } from '@tabler/icons-react';
+import { IconBooks, IconDeviceGamepad, IconHome, IconLogout, IconMovie, IconSettings,IconMessageChatbot } from '@tabler/icons-react';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -11,7 +11,8 @@ import { signOut } from 'next-auth/react';
 
 
 const data = [
-  { link: '/home', label: 'All', icon: IconHome },
+  { link: '/atlas-ai', label: 'A.T.L.A.S AI', icon: IconMessageChatbot },
+  { link: '/home', label: 'Home', icon: IconHome },
   { link: '/books', label: 'Books', icon: IconBooks },
   { link: '', label: 'Movies / TV Shows', icon: IconMovie },
   { link: '', label: 'Games', icon: IconDeviceGamepad },
@@ -49,10 +50,10 @@ export function Sidebar({ toggle }: { toggle: () => void }) {
       </div>
 
       <div className={classes.footer}>
-        <Button className={classes.link} variant="subtle">
+        <Link className={classes.link} href="/profile">
           <IconSettings className={classes.linkIcon} stroke={1.5} />
-          <span>Profile</span>
-        </Button>
+          <span>Profiles</span>
+        </Link>
 
         <Button className={classes.link} variant="subtle" onClick={() => signOut()}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />

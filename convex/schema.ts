@@ -88,12 +88,36 @@ export const aggregatedRatingSchema = {
   totalUsers: v.number(),
 };
 
+export const userProfileSchema = {
+  userId: v.id('users'),
+  bio: v.optional(v.string()),
+  favoriteGenres: v.array(v.string()),
+  preferredMediaTypes: v.array(v.string()),
+  ageRange: v.optional(v.string()),
+  languagePreferences: v.array(v.string()),
+};
+
+export const bookSuggestionSchema = {
+  title: v.string(),
+  author: v.string(),
+  reason: v.string(),
+  description: v.string(),
+};
+
+export const aiSuggestedBooksSchema = {
+  books: v.array(v.object(bookSuggestionSchema)),
+  userId: v.id('users'),
+};
+
+
 export default defineSchema({
   ...authTables,
   books: defineTable(bookSchema),
   comments: defineTable(commentSchema),
   ratings: defineTable(ratingSchema),
   aggregatedRatings: defineTable(aggregatedRatingSchema),
+  userProfile: defineTable(userProfileSchema),
+  aiSuggestedBooks: defineTable(aiSuggestedBooksSchema),
   // your other tables
   // or pass `strictTableNameTypes: false`
   // in the second argument argument to `defineSchema`

@@ -1,7 +1,7 @@
 'use client';
 
 import type { MyBook } from '@/lib/types';
-import { Badge, Box, Button, Card, Flex, Group, Image, Text } from '@mantine/core';
+import { Badge, Box, Button, Card, Flex, Group, Image, Rating, Text } from '@mantine/core';
 import Link from 'next/link';
 
 export default function HomeBookCardComponent({ book }: { book: MyBook  }) {
@@ -20,8 +20,11 @@ export default function HomeBookCardComponent({ book }: { book: MyBook  }) {
         <Text fw={500} lineClamp={1}>
           {book.title}
         </Text>
+        <Rating value={book.rating?.rating} color="yellow" fractions={2} readOnly />
       </Group>
-      <Text c="blue" mb="xs">by {book.author_name}</Text>
+      <Text c="blue" mb="xs">
+        by {book.author_name}
+      </Text>
 
       <Text size="sm" c="dimmed" lineClamp={4} style={{ minHeight: '80px' }}>
         {book.description}
@@ -33,4 +36,5 @@ export default function HomeBookCardComponent({ book }: { book: MyBook  }) {
       </Link>
     </Card>
   );
+  // oekMzE5tWmptnXe0TmfychNAG_HEqoYpHb_X3dn3
 }
