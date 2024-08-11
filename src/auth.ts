@@ -13,10 +13,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async session({ session }) {
       const privateKeyString = process.env.CONVEX_AUTH_PRIVATE_KEY!;
-      // Remove any whitespace and newline characters
-      const cleanedPrivateKey = privateKeyString.replace(/\s/g, '');
-      const privateKey = await importPKCS8(cleanedPrivateKey, 'RS256');
-      
+      // Ensure the key is in PEM format
+      const pemKey = privateKeyString.startsWith('-----BEGIN PRIVATE KEY-----')
+        ? privateKeyString
+        : `-----BEGIN PRIVATE KEY-----\n${privateKeyString}\n-----END PRIVATE KEY-----`;
+
+      const privateKey = await importPKCS8(pemKey, 'RS256');
+
       const convexToken = await new SignJWT({
         sub: session.userId,
       })
@@ -31,8 +34,4 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
 });
 
-declare module 'next-auth' {
-  interface Session {
-    convexToken: string;
-  }
-}
+// ... rest of the file remains unchanged
