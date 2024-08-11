@@ -28,6 +28,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     // Attach a JWT for authenticating with Convex
     async session({ session }) {
+      console.log(process.env.CONVEX_AUTH_PRIVATE_KEY);
       const privateKey = await importPKCS8(
         process.env.CONVEX_AUTH_PRIVATE_KEY!,
         "RS256",
