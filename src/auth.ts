@@ -9,9 +9,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   debug: true,
   providers: [Google],
   adapter: ConvexAdapter,
+  trustHost: true,
   callbacks: {
     async session({ session }) {
-      const privateKey = await importPKCS8(process.env.CONVEX_AUTH_PRIVATE_KEY!, 'RS256');
+      const privateKeyString = process.env.CONVEX_AUTH_PRIVATE_KEY!;
+      // Remove any whitespace and newline characters
+      const cleanedPrivateKey = privateKeyString.replace(/\s/g, '');
+      const privateKey = await importPKCS8(cleanedPrivateKey, 'RS256');
+      
       const convexToken = await new SignJWT({
         sub: session.userId,
       })
