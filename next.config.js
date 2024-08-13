@@ -10,6 +10,9 @@ export default withBundleAnalyzer({
   eslint: {
     ignoreDuringBuilds: true,
   },
+  compiler: {
+    removeConsole: true,
+  },
   experimental: {
     turbo: {
       resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.mjs', '.json'],
