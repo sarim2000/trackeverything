@@ -26,5 +26,5 @@ export type MyBook = {
   userId: string,
   author_name: string,
   first_publish_year: string,
-  rating: Rating | null,
+  rating: number,
 };

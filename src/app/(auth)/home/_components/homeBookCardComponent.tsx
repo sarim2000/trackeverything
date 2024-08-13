@@ -20,7 +20,7 @@ export default function HomeBookCardComponent({ book }: { book: MyBook  }) {
         <Text fw={500} lineClamp={1}>
           {book.title}
         </Text>
-        <Rating value={book.rating?.rating} color="yellow" fractions={2} readOnly />
+        <Rating value={book.rating} color="yellow" fractions={2} readOnly />
       </Group>
       <Text c="blue" mb="xs">
         by {book.author_name}

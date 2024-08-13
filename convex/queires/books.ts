@@ -10,10 +10,11 @@ export const getBooks = query({
         const books = await ctx.db.query('books').filter(q => q.eq(q.field('userId'), userId)).collect();
 
         const booksWithRatings = await Promise.all(books.map(async (book) => {
-            const rating = await ctx.db.query('ratings').filter(q => q.eq(q.field('mediaId'), book.id)).unique()
+            const rating = await ctx.db.query('ratings').filter(q => q.eq(q.field('mediaId'), book.id)).collect()
+            const averageRating = rating.reduce((acc, curr) => acc + curr.rating, 0) / rating.length
             console.log("🚀 ~ booksWithRatings ~ rating:", rating)
             
-            return {...book, rating}
+            return {...book, rating: averageRating ?? 0}
         }))
 
         return booksWithRatings;
