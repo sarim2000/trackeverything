@@ -22,7 +22,7 @@ const CONVEX_SITE_URL = process.env.NEXT_PUBLIC_CONVEX_URL!.replace(
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
-    Google
+    Google,
   ],
   adapter: ConvexAdapter,
   callbacks: {
