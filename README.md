@@ -42,7 +42,6 @@ An app where user can track books,movies, tv, games and get recommendation from 
 
 4. user can track, get updates, comments and get recommendations
 
-Testing out my git commit messages. Please work
 
 ## libraries in use
 

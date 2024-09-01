@@ -9,10 +9,18 @@ export default async function Page({
 }: {
   searchParams?: {
     title?: string;
+    author?: string;
+    year?: string;
+    genre?: string;
     page?: string;
   };
 }) {
-  const query = searchParams?.title || 'count';
+  const query = {
+    title: searchParams?.title || '',
+    author: searchParams?.author || '',
+    year: searchParams?.year || '',
+    genre: searchParams?.genre || '',
+  };
 
   return (
     <Flex direction={'column'} align={'center'} gap={'lg'}>

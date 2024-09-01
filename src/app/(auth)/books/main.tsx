@@ -3,7 +3,7 @@ import type { Book } from '@/lib/types';
 import { Flex, Text } from '@mantine/core';
 import getBooks from './actions';
 
-export default async function BookLayout({ query }: { query: string }) {
+export default async function BookLayout({ query }: { query: { title: string, author: string, year: string, genre: string } }) {
   const books = (await getBooks(query)) as Book[];
   // const books = [] as Book[]
 
