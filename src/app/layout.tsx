@@ -4,7 +4,7 @@ import '@/styles/global.css';
 import { auth } from '@/auth';
 import ConvexClientProvider from '@/lib/context/ConvexClientProvider';
 import { Notifications } from '@mantine/notifications';
-
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata = {
   title: 'TrackEverything',
@@ -23,6 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <MantineProvider theme={theme} defaultColorScheme="dark">
             {/* <NavigationProgress size={24}/> */}
             {children}
+            <Analytics />
             <Notifications />
           </MantineProvider>
         </ConvexClientProvider>
