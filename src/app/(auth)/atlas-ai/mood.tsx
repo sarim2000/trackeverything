@@ -11,8 +11,13 @@ import { api } from "@src/convex/_generated/api";
 import { useMutation } from "convex/react";
 import BookSuggestionDisplay from "./_components/BookSuggestionsDisplay";
 import { notifications } from "@mantine/notifications";
+import { useQueryClient } from "@tanstack/react-query";
+
+
 
 export default function MoodBasedRecommendations() {
+const queryClient = useQueryClient();
+
   const mutateAiSuggestedBooks = useMutation(api.mutations.aiSuggestedBook.addAiSuggestedBooks);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -61,6 +66,7 @@ export default function MoodBasedRecommendations() {
           books: aiSuggestionsTemp,
           typeOfSuggestion: 'mood',
         });
+        queryClient.invalidateQueries({ queryKey: ['atlasLimit'] });
       }
       setIsLoading(false);
     }

@@ -9,8 +9,6 @@ const redis = Redis.fromEnv();
 
 
 
-
-
 export async function getAISuggestionsUserProfile(user_profile: UserProfile) {
 
   const session = await auth();

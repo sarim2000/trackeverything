@@ -14,6 +14,8 @@ import BookSuggestionDisplay from './_components/BookSuggestionsDisplay';
 import { notifications } from '@mantine/notifications';
 import { useQueryClient } from '@tanstack/react-query';
 
+
+
 export default function PersonalizedRecommendations() {
   const queryClient = useQueryClient();
 

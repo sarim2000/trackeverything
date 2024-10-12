@@ -43,7 +43,7 @@ export default function Page() {
     queryFn: async() => {
       const limit = await getAtlasLimit();
       if (!limit) {
-        throw new Error('Atlas limit not found');
+        return 0
       }
       return limit * 10;
     },

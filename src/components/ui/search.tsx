@@ -1,5 +1,5 @@
 'use client';
-import { Box, Button, Flex, TextInput, Select, NumberInput, Collapse } from '@mantine/core';
+import { Box, Button, Flex, TextInput, Select, NumberInput, Collapse, Text } from '@mantine/core';
 import { IconSearch, IconFilter } from '@tabler/icons-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useState, useTransition } from 'react';
@@ -28,7 +28,6 @@ export default function Search() {
         { name: 'author', value: author },
         { name: 'subject', value: subject },
         { name: 'place', value: place },
-        { name: 'person', value: person },
         { name: 'publisher', value: publisher },
       ];
 
@@ -54,45 +53,20 @@ export default function Search() {
     <Flex direction="column" gap="md" align="center">
       <Flex gap="md" justify="center" align="center" direction="row" wrap="wrap">
         <TextInput
-          placeholder="Title"
+          placeholder="Title (optional)"
           value={title}
           onChange={(e) => setTitle(e.currentTarget.value)}
         />
         <TextInput
-          placeholder="Author"
+          placeholder="Author (optional)"
           value={author}
           onChange={(e) => setAuthor(e.currentTarget.value)}
         />
-        <Button onClick={() => setIsAdvancedOpen((prev) => !prev)} variant="outline">
-          <IconFilter />
-          Advanced Filters
-        </Button>
       </Flex>
       
-      <Collapse in={isAdvancedOpen}>
-        <Flex gap="md" justify="center" align="center" direction="row" wrap="wrap">
-          <TextInput
-            placeholder="Subject"
-            value={subject}
-            onChange={(e) => setSubject(e.currentTarget.value)}
-          />
-          <TextInput
-            placeholder="Place"
-            value={place}
-            onChange={(e) => setPlace(e.currentTarget.value)}
-          />
-          <TextInput
-            placeholder="Person"
-            value={person}
-            onChange={(e) => setPerson(e.currentTarget.value)}
-          />
-          <TextInput
-            placeholder="Publisher"
-            value={publisher}
-            onChange={(e) => setPublisher(e.currentTarget.value)}
-          />
-        </Flex>
-      </Collapse>
+      <Text size="sm" c="dimmed">
+        Search by title, author, or both
+      </Text>
       
       <Box>
         <Button onClick={handleSearch} loading={isPending}>
